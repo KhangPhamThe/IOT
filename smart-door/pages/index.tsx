@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from 'styles/Home.module.scss'
 import LeftBar from '../components/home/leftBar'
-import { Navbar, Text } from "@nextui-org/react";
+import { Navbar as Nav, Text } from "@nextui-org/react";
+import NavBar from '../components/home/navBar'
 
 
 const Home: NextPage = () => {
@@ -17,13 +18,16 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <LeftBar />
-        <Navbar isBordered variant="sticky">
-          <Navbar.Brand>
-            <Text b color="inherit" hideIn="xs">
-              ACME
-            </Text>
-          </Navbar.Brand>
-        </Navbar>
+        
+        <div className={styles.rightSide}>
+          <NavBar />
+        </div>
+
+        <Nav variant="sticky" isBordered>
+          <Nav.Brand>
+            abc test
+          </Nav.Brand>
+        </Nav>
       </main>
     </div>
   )

@@ -5,9 +5,14 @@
 	.main {
 		min-height: 100vh;
 		flex: 1;
+		display: flex;
+		flex-direction: row;
+
+		.rightSide {
+			width: $my-rightSide-width;
+		}
 	}
 }
-
 
 .leftBar-container {
 	width: $my-leftBar-width;
@@ -28,6 +33,21 @@
 			font-size: 20px;
 			color: $my-important-text-color;
 		}
+	}
+}
+
+.navBar-container {
+	position: sticky;
+	top: 0px;
+	padding: 30px;
+	border-bottom: 1px solid $my-normal-text-color;
+
+	display: flex;
+	flex-direction: row;
+
+	h2 {
+		color: $my-important-text-color;
+		justify-self: right;
 	}
 }
 

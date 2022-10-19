@@ -1,13 +1,17 @@
 @import "variable";
 
+html {
+	color-scheme: dark;
+}
+
 html,
 body {
-  background-color: $my-bg-color;
-  color: $my-normal-text-color;
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background-color: $my-bg-color;
+	color: $my-normal-text-color;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 // a {
@@ -16,7 +20,33 @@ body {
 // }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.searchBar {
+	background-color: $my-bg-gray-color;
+	color: $my-normal-text-color;
+	border-radius: 10px;
+	height: 50px;
+	width: 400px;
+	margin: auto 10px;
+}
+
+.searchBar::placeholder {
+	/* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: $my-normal-text-color;
+	opacity: 1;
+	/* Firefox */
+}
+
+.searchBar:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: $my-normal-text-color;
+}
+
+.searchBar::-ms-input-placeholder {
+	/* Microsoft Edge */
+	color: $my-normal-text-color;
 }
 
 // @media (prefers-color-scheme: dark) {
