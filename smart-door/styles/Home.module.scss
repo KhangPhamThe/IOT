@@ -36,21 +36,6 @@
 	}
 }
 
-.navBar-container {
-	position: sticky;
-	top: 0px;
-	padding: 30px;
-	border-bottom: 1px solid $my-normal-text-color;
-
-	display: flex;
-	flex-direction: row;
-
-	h2 {
-		color: $my-important-text-color;
-		justify-self: right;
-	}
-}
-
 @media (max-width: 600px) {
 	.grid {
 		width: 100%;
