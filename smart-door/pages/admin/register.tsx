@@ -1,6 +1,7 @@
 import { Input, Spacer, StyledButton } from '@nextui-org/react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import AuthContext from '../../components/context/AuthProvider'
 import { auth } from '../api/googleAuthen/firebase-config'
 
 type Props = {
@@ -10,6 +11,10 @@ type Props = {
 const RegisterAdminPage = (props: Props) => {
     const [registerEmail, setRegisterEmail] = useState('')
     const [registerPassword, setRegisterPassword] = useState('')
+    const currentUser = useContext(AuthContext)
+    useEffect(() => {
+        console.log("abcxyz", currentUser)
+    }, [currentUser])
     const handleRegister = async () => {
         try {
             const user = await createUserWithEmailAndPassword(
@@ -17,6 +22,7 @@ const RegisterAdminPage = (props: Props) => {
                 registerEmail,
                 registerPassword,
             )
+            
         } catch (error) {
             console.log(error)
         }

@@ -1,6 +1,6 @@
 import { Input, Spacer, StyledButton } from "@nextui-org/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../components/context/AuthProvider";
 import { auth } from "../api/googleAuthen/firebase-config";
 
@@ -9,7 +9,7 @@ type Props = {};
 const LoginPage = (props: Props) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const { handleSetAuth} = useContext(AuthContext)
+  const currentUser = useContext(AuthContext)
 
   const handleLogin = async () => {
     try {
@@ -18,15 +18,19 @@ const LoginPage = (props: Props) => {
             loginEmail, 
             loginPassword,
         )
-        handleSetAuth(user)
+
     } catch(error) {
         console.log(error)
     }
   };
 
+  useEffect(() => {
+    console.log("cccc", currentUser)
+  }, [currentUser])
   return (
     <div>
       <div>Just admin can go to this page to register to User</div>
+      {/* <div>{globalAuth && `${globalAuth.user.email}`}</div> */}
       <Input
         labelLeft="User name"
         placeholder="Username"

@@ -1,21 +1,33 @@
-import React, { createContext, useState } from "react";
+import { onAuthStateChanged, User } from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import { auth } from "../../pages/api/googleAuthen/firebase-config";
 
 type Props = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
-const AuthContext = createContext({
-  auth: null,
-  handleSetAuth: (user: any) => {},
-});
+const AuthContext = createContext({});
 
 export const AuthProvider = (props: Props) => {
-  const [auth, setAuth] = useState(null);
-  const handleSetAuth = (user: any) => {
-    setAuth(user);
-  };
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: any) => {
+      if (user) {
+        setCurrentUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName
+        })
+      } else {
+        setCurrentUser(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ auth, handleSetAuth }}>
+    <AuthContext.Provider value={{currentUser}}>
       {props.children}
     </AuthContext.Provider>
   );
