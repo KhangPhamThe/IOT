@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from 'styles/Home.module.scss'
 import LeftBar from '../components/home/leftBar'
 import { Navbar as Nav, Text } from "@nextui-org/react";
-import NavBar from '../components/home/navBar'
+import NavBar from 'components/home/navBar'
 
 
 const Home: NextPage = () => {
@@ -22,12 +22,6 @@ const Home: NextPage = () => {
         <div className={styles.rightSide}>
           <NavBar />
         </div>
-
-        <Nav variant="sticky" isBordered>
-          <Nav.Brand>
-            abc test
-          </Nav.Brand>
-        </Nav>
       </main>
     </div>
   )

@@ -1,0 +1,44 @@
+@import "variable";
+
+.navBar-container {
+	position: sticky;
+	top: 0px;
+	padding: 30px;
+	border-bottom: 1px solid $my-normal-text-color;
+
+	display: flex;
+	flex-direction: row;
+
+	.leftSide {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		width: 60%;
+
+		h2 {
+			margin: 0px;
+			color: $my-important-text-color;
+			justify-self: right;
+		}
+	
+	
+		.searchBar label {
+			background-color: #252525;
+			visibility: visible;
+		}
+	
+		.searchBar input {
+			color: #7a7a7a;
+			visibility: visible;
+		}
+	}
+
+	.rightSide {
+		padding: 0px 10px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		width: 40%;
+	}
+}
