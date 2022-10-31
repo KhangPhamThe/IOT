@@ -1,5 +1,6 @@
 import { UserModel } from "../models/UserModel.js";
 import Joi from "joi";
+import bcrypt from "bcryptjs";
 
 const validUserSchema = Joi.object({
   email: Joi.string().min(6).required().email(),
