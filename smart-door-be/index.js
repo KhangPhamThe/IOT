@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.port || 6000;
+const PORT = process.env.PORT || 6000;
 
 app.use(bodyParser.json({limit: '30mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '30mb'}));
