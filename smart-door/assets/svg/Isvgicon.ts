@@ -1,7 +1,6 @@
 export interface IsvgIconProps {
     size?: string | number,
-    fill: string,
-    filled?: boolean,
+    fill?: string,
     width?: number,
     height?: number,
     label?: string,

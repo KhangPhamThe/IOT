@@ -2,7 +2,6 @@ import { IsvgIconProps } from "./Isvgicon";
 
 const NotificationIcon = ({
     fill = 'currentColor',
-    filled,
     size,
     height,
     width,

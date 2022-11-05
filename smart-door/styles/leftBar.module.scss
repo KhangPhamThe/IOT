@@ -1,0 +1,37 @@
+@import "variable";
+
+.leftBar-container {
+	width: $my-leftBar-width;
+	height: 100vh;
+	padding: 46px 40px;
+	margin: 3px 0px;
+
+	border-right: solid $my-normal-text-color 1px;
+	position: sticky;
+	left: 0;
+
+	.logo {
+		display: flex;
+		flex-direction: row;
+
+		h1 {
+			margin: auto 0 auto 16px;
+			font-size: 20px;
+			color: $my-important-text-color;
+		}
+	}
+
+    .categoryContainer {
+        .categoryItem {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            width: 100%;
+
+            h3 {
+                margin: 0 0;
+            }
+        }
+    }
+}
