@@ -3,7 +3,7 @@
 .leftBar-container {
 	width: $my-leftBar-width;
 	height: 100vh;
-	padding: 46px 40px;
+	padding: 20px 40px;
 	margin: 3px 0px;
 
 	border-right: solid $my-normal-text-color 1px;
@@ -13,25 +13,60 @@
 	.logo {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		padding: 8px 0px;
 
 		h1 {
 			margin: auto 0 auto 16px;
-			font-size: 20px;
+			font-size: 28px;
 			color: $my-important-text-color;
 		}
 	}
 
     .categoryContainer {
+		margin-top: 44px;
+		margin-left: 10px;
+
         .categoryItem {
             display: flex;
             flex-direction: row;
             align-items: center;
 
             width: 100%;
+			padding: 12px 10px;
+			border-radius: 8px;
+
+			position: static;
+
+			cursor: pointer;
 
             h3 {
                 margin: 0 0;
+				padding-left: 12px;
             }
+
+			.activeCursor {
+				position: absolute;
+				left: 0px;
+
+				width: 7px;
+				height: 50px;
+
+				background-color: white;
+				border-top-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+			}
         }
+
+		.categoryItem:hover {
+			position: static;
+			background-color: #252525;
+			filter: brightness(1.5);
+
+			.activeCursor {
+				position: absolute;
+				left: 0px;
+			}
+		}
     }
 }

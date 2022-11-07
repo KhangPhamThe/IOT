@@ -8,4 +8,4 @@ export const nextUIColor = {
     GRADIENT: 'gradient',
 }
 
-export const colorList = [nextUIColor.SUCCESS, nextUIColor.WARNING, nextUIColor.ERROR, nextUIColor.PRIMARY, nextUIColor.SECONDARY, nextUIColor.WHITE, nextUIColor.GRADIENT];
+export const colorList = [nextUIColor.SUCCESS, nextUIColor.WARNING, nextUIColor.ERROR, nextUIColor.PRIMARY, nextUIColor.SECONDARY, nextUIColor.GRADIENT];

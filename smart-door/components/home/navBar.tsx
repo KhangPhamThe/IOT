@@ -1,7 +1,7 @@
 import styles from 'styles/navBar.module.scss';
 import { Input, Button, Avatar, Dropdown } from '@nextui-org/react';
 import SearchIcon from 'assets/svg/searchIcon';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { colorList } from '../../assets/constants';
 import NotificationIcon from 'assets/svg/notificationIcon';
 import QuestionIcon from 'assets/svg/questionIcon';
@@ -12,7 +12,8 @@ import ProfileIcon from '@/assets/svg/profileIcon';
 
 const NavBar = () => {
     const [hasLogin, setHasLogin] = useState(false);
-    const color = useRef(colorList[Math.floor(Math.random() * colorList.length)]) as any;
+    const color = useRef<any>(colorList[Math.floor(Math.random() * colorList.length)]);
+    console.log('color.current ', color.current);
 
     return (
         <div className={styles['navBar-container']}>
@@ -28,12 +29,12 @@ const NavBar = () => {
                 <Dropdown>
                     <Dropdown.Button style={{ backgroundColor: 'black' }}></Dropdown.Button>
                     {hasLogin ?
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{width: "300px"}}>
                             <Dropdown.Item icon={<ProfileIcon fill='#252525' />}>Profile</Dropdown.Item>
                             <Dropdown.Item icon={<LogOutIcon fill='#252525' />}>Log out</Dropdown.Item>
                         </Dropdown.Menu>
                         :
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{width: "300px"}}>
                             <Dropdown.Item icon={<LogInIcon fill='#252525' />}>Log in</Dropdown.Item>
                             <Dropdown.Item icon={<RegisterIcon fill='#252525' />}>Register</Dropdown.Item>
                         </Dropdown.Menu>

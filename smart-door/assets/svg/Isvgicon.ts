@@ -4,5 +4,6 @@ export interface IsvgIconProps {
     width?: number,
     height?: number,
     label?: string,
+    style?: React.CSSProperties,
     props?: any,
 }
