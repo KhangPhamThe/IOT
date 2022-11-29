@@ -10,7 +10,7 @@
 
         display: flex;
         width: 100%;
-        height: 50%;
+        height: 60%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -58,13 +58,25 @@
             right: 31px;
             top: 17px;
         }
+
+        p {
+            color: white;
+            margin: 0;
+        }
+
+        .createBtn {
+            color: #A1FFFF;
+            text-decoration-line: underline;
+            background-color: transparent;
+            border: none;
+        }
     }
 }
 
 @media only screen and (max-width: 600px) {
     .container {
         background-image: url('../assets/images/phone-bg.png');
-        background-size: 90%;
+        background-size: 100%;
         background-repeat: no-repeat;
     }
 }
