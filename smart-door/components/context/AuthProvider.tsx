@@ -1,4 +1,8 @@
+import { useAppDispatch, useAppSelector } from "hooks";
+import { useRouter } from "next/router";
 import React, { createContext, useEffect, useState } from "react";
+import { getUserProfile } from "reducer/user/userSlice";
+import { getCookieUserJWT } from "utils/users.utils";
 
 type Props = {
   children: React.ReactNode;
@@ -7,12 +11,24 @@ type Props = {
 const AuthContext = createContext({});
 
 export const AuthProvider = (props: Props) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-
-  
+  const currUserSelection = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch()
+  const route = useRouter()
+  useEffect(() => {
+    const jwt =  getCookieUserJWT()
+    if (!jwt) {
+      route.push('/general/login')
+    } 
+    else {
+      dispatch(getUserProfile({jwt}))
+      if (route.pathname == '/general/login') {
+        route.push('/')
+      }
+    }
+  }, [route, dispatch])
 
   return (
-    <AuthContext.Provider value={{currentUser}}>
+    <AuthContext.Provider value={{}}>
       {props.children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { Text } from "@nextui-org/react";
+import { cssNoBlurriness, Text } from "@nextui-org/react";
 import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "components/context/AuthProvider";
@@ -7,16 +7,19 @@ import loginStyles from "styles/login.module.scss";
 import EmailIcon from "@/assets/svg/emailIcon";
 import LockIcon from "@/assets/svg/lockIcon";
 import { Modal } from "@nextui-org/react";
+import { signIn } from "reducer/user/userSlice";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
   const emailInput = useRef<HTMLInputElement>(null);
   const passInput = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();  
 
-  const currentUser = useContext(AuthContext)
+  const [isShowCreateGuide, setIsShowCreateGuide] = useState(false);  
 
-  const [isShowCreateGuide, setIsShowCreateGuide] = useState(false);
   const showCreateGuide = () => {
     setIsShowCreateGuide(true);
   }
@@ -27,16 +30,22 @@ const LoginPage = (props: Props) => {
   const handleOnLogin = async () => {
     console.log(emailInput?.current?.value)
     console.log(passInput?.current?.value)
-  }
-  
-
-  useEffect(() => {
-    console.log("cccc", currentUser)
-  }, [currentUser])
+    try {
+      const payload = {
+        email: emailInput?.current?.value || "",
+        password: passInput?.current?.value || "",              
+      }
+      const userActionResult = await dispatch(signIn(payload))
+      unwrapResult(userActionResult)
+      
+    }
+    catch {
+      // handle error here like display something
+    }
+  }  
 
   return (
     <div className={loginStyles.container}>
-      {/* <div>{globalAuth && `${globalAuth.user.email}`}</div> */}
 
       <div className={loginStyles.main}>
         <h1>Sign In</h1>
@@ -53,7 +62,7 @@ const LoginPage = (props: Props) => {
 
         <button className={loginStyles.submitBtn} style={{marginTop: "31px"}} onClick={handleOnLogin}>Log In</button>
 
-        <p style={{marginTop: "13px"}}>Don't have account yet?</p>
+        <p style={{marginTop: "13px"}}>{"Don't have account yet?"}</p>
 
         <button className={loginStyles.createBtn} onClick={showCreateGuide}>Request an account</button>
         <Modal closeButton open={isShowCreateGuide} onClose={hideCreateGuide} style={{maxWidth: '85%', margin: '0 auto'}}>

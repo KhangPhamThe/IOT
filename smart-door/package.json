@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.10",
+    "@reduxjs/toolkit": "^1.9.1",
+    "key-mirror": "^1.0.1",
     "next": "12.3.1",
+    "next-redux-wrapper": "^8.0.0",
     "process": "^0.11.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
     "sass": "^1.55.0"
   },
   "devDependencies": {

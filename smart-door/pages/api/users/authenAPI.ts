@@ -1,3 +1,4 @@
+import { getCookieUserJWT } from './../../../utils/users.utils';
 const DOMAIN_URL = "https://iot-system-bk123.herokuapp.com/api";
 
 export const userAPI = {
@@ -12,11 +13,13 @@ export const userAPI = {
     }
 
     const encodedBody: string = formBody.join("&");
+
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
+      headers: requestHeader,
       body: encodedBody,
     });
     return rs.json();
@@ -40,13 +43,31 @@ export const userAPI = {
     }
 
     const encodedBody: string = formBody.join("&");
+
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    requestHeader.set("auth-token", getCookieUserJWT() || '');
+
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
+      headers: requestHeader,
       body: encodedBody,
     });
     return rs.json();
   },
+
+  getUserProfile: async (data: {
+    jwt: string;
+  }) => {
+    const url = "get-user-profile";
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("Content-Type", "application/json");
+    requestHeader.set("auth-token", data.jwt);
+
+    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+      method: "GET",
+      headers: requestHeader,
+    });
+    return rs.json();
+  },  
 };

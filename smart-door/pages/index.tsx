@@ -5,7 +5,8 @@ import styles from 'styles/Home.module.scss'
 import LeftBar from '../components/home/leftBar'
 import { Navbar as Nav, Text } from "@nextui-org/react";
 import NavBar from 'components/home/navBar'
-
+import { Provider } from 'react-redux'
+import { store } from 'store'
 
 const Home: NextPage = () => {
   return (
@@ -23,7 +24,7 @@ const Home: NextPage = () => {
           <NavBar />
         </div>
       </main>
-    </div>
+    </div>      
   )
 }
 
