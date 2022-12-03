@@ -12,6 +12,7 @@
     "@nextui-org/react": "^1.0.0-beta.10",
     "@reduxjs/toolkit": "^1.9.1",
     "key-mirror": "^1.0.1",
+    "mqtt": "^4.3.7",
     "next": "12.3.1",
     "next-redux-wrapper": "^8.0.0",
     "process": "^0.11.10",

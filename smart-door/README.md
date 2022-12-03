@@ -32,3 +32,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+- https://io.adafruit.com/api/docs/mqtt.html#client-librarie 
+- https://io.adafruit.com/blog/tips/2016/07/14/naming-feeds/
+- https://www.emqx.com/en/blog/how-to-use-mqtt-in-nodejs
+- https://mpolinowski.github.io/docs/Development/Javascript/2021-06-01--mqtt-with-reactjs/2021-06-01
+- https://learn.adafruit.com/adafruit-io/mqtt-api
+- https://www.npmjs.com/package/mqtt#client
+- https://io.adafruit.com/api/docs/#about-the-api-docs

@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "store";
 import { getCookieUserJWT } from "utils/users.utils";
 import { useRouter } from "next/router";
+import { MQTTProvider } from "@/components/context/MQTTProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>      
       <NextUIProvider>
         <AuthProvider>
-          <Component {...pageProps} />
+          <MQTTProvider>
+            <Component {...pageProps} />
+          </MQTTProvider>
         </AuthProvider>
       </NextUIProvider>
     </Provider>
