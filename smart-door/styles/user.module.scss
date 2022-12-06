@@ -1,0 +1,58 @@
+.container {
+    .navBar{
+        padding: 14px 20px;
+        border-bottom: solid 1px white;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .logoGr {
+            display: flex;
+            flex-direction: row;
+            h1 {
+                font-size: 20px;
+                margin: auto 0px auto 8px;
+            }
+        }
+    }
+
+    .bottomBar {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        padding: 0px 20px;
+        background-color: black;
+        border-top: solid 1px white;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .homeBtn {
+            background: linear-gradient(180deg, #EDBAFF 0%, #A1FFFF 100%);
+        }
+    }
+}
+
+.accountContainer {
+    margin: 12px auto;
+    padding: 20px 10px;
+    background-color: greenyellow;
+    border-radius: 10px;
+
+    .ava {
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .name {
+        margin-top: 10px;
+        font-weight: bold;
+        text-align: center;
+    }
+}

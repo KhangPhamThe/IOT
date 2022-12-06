@@ -1,0 +1,31 @@
+@import "variable";
+
+.openDoorPhone {
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: blue;
+
+    .title {
+        position: absolute;
+    }
+
+    .btnContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .btn {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0px;
+            // color: white;
+            font-size: 15px;
+            font-weight: bold;
+            background: $my-gradient-color;
+        }
+    }
+}
