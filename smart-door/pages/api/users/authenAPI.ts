@@ -70,4 +70,9 @@ export const userAPI = {
     });
     return rs.json();
   },  
+
+  onLogOutAccount: async () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("expired_at");
+  },    
 };

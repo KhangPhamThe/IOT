@@ -48,6 +48,13 @@ export const getUserProfile = createAsyncThunk(
     }
   );
 
+export const onLogout = createAsyncThunk(
+    "user/onLogout",
+   async () => {
+      userAPI.onLogOutAccount()
+   }
+);
+
 export interface UserState {
     current: {
         email: string | null;
@@ -94,6 +101,12 @@ export const userSlice = createSlice({
             state.current = action.payload || {};
             state.error = '';
         })
+
+        .addCase(onLogout.fulfilled, (state, action:PayloadAction<any>) => {
+          state.current = {};
+          state.listUsers = null;
+          state.error = '';
+      })
   }
 });
 
