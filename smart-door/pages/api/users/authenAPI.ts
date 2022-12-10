@@ -1,5 +1,5 @@
 import { getCookieUserJWT } from './../../../utils/users.utils';
-const DOMAIN_URL = "https://iot-backend-deploy.vercel.app/api/";
+const DOMAIN_URL = "https://iot-backend-deploy.vercel.app/api";
 
 export const userAPI = {
   onLogin: async (data: { email: string; password: string }) => {
