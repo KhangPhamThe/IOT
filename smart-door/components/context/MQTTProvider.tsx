@@ -6,8 +6,8 @@ type Props = {
     children: React.ReactNode;
 }
 
-const client = mqtt.connect("mqtts://KhangPhamThe:aio_MICP57ccvsyT9lUsKSqN1REwikLs@io.adafruit.com", {
-    host: "mqtts://KhangPhamThe:aio_MICP57ccvsyT9lUsKSqN1REwikLs@io.adafruit.com",
+const client = mqtt.connect(process.env.NEXT_PUBLIC_MQTT_URL || "", {
+    host: process.env.NEXT_PUBLIC_MQTT_URL || "",
     clientId: `mqtt_234567`,
     keepalive: 60,
     reconnectPeriod: 20000,
