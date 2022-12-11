@@ -98,7 +98,7 @@ export const userSlice = createSlice({
             state.error = action.payload || "error when login";
         })
         .addCase(getUserProfile.fulfilled, (state, action:PayloadAction<any>) => {
-            state.current = action.payload || {};
+            state.current = action.payload || null;
             state.error = '';
         })
 

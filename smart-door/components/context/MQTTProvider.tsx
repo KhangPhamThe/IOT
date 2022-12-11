@@ -34,7 +34,7 @@ export const MQTTProvider = (props: Props) => {
     const currUserSelection = useAppSelector(state => state.user);
     
     useEffect(() => {
-        if (currUserSelection) {
+        if (currUserSelection?.current) {
             client.on('connect', () => {
                 console.log('connected to adafruit')
                 client.subscribe(topics, () => {

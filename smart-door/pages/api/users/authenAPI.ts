@@ -61,12 +61,12 @@ export const userAPI = {
   }) => {
     const url = "get-user-profile";
     const requestHeader: HeadersInit = new Headers();
-    requestHeader.set("Content-Type", "application/json");
     requestHeader.set("auth-token", data.jwt);
 
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {
       method: "GET",
       headers: requestHeader,
+      mode: "cors",
     });
     return rs.json();
   },  
