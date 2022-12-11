@@ -13,13 +13,11 @@ import SearchIcon from '@/assets/svg/searchIcon';
 import styles from "styles/navBar.module.scss";
 import AccountIcon from '@/assets/svg/account';
 import { userAPI } from 'pages/api/users/authenAPI';
+import { useAppSelector } from 'hooks';
 
 const User = () => {
     const route = useRouter();
-    // async () => {
-    //     const res = await userAPI.getUserProfile();
-    //     console.log(res);
-    // };
+    const currUserSelection = useAppSelector(state => state.user);
 
     return (
         <div className={userStyle.container}>
@@ -42,22 +40,22 @@ const User = () => {
 
                 <div className={userStyle.field}>
                     <h3>First Name</h3>
-                    <input value="Khang" disabled/>
+                    <input value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled/>
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Last Name</h3>
-                    <input value="Phạm Thế" disabled/>
+                    <input value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled/>
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Email</h3>
-                    <input value="khang.pham271200@hcmut.edu.vn" disabled/>
+                    <input value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled/>
                 </div>
                 
                 <div className={userStyle.field}>
                     <h3>Role</h3>
-                    <input value="Admin/Employee" disabled/>
+                    <input value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled/>
                 </div>
 
             </main>
