@@ -20,7 +20,7 @@ const NavBar = () => {
   const color = useRef<any>(
     colorList[Math.floor(Math.random() * colorList.length)]
   );
-  console.log("color.current ", color.current);
+  
   useEffect(() => {
     if (currentUser) {
       setHasLogin(true);

@@ -67,20 +67,44 @@
 }
 
 .accountContainer {
-    margin: 12px auto;
-    padding: 20px 10px;
-    background-color: greenyellow;
+    margin: 22px auto;
+    padding: 20px;
+    background-color: #252525;
     border-radius: 10px;
 
     .ava {
         width: fit-content;
         margin: 0 auto;
+
+        img {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
     }
 
     .name {
         margin-top: 10px;
         font-weight: bold;
         text-align: center;
+    }
+
+    .field {
+        h3 {
+            font-size: 18px;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: solid 1px;
+            font-size: 14px;
+        }
     }
 }
 
@@ -97,5 +121,6 @@
         font-size: 19px;
         color: white;
         margin-right: 8px;
+        letter-spacing: 0.5px;
     }
 }

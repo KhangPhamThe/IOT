@@ -1,4 +1,6 @@
+import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import userStyle from 'styles/user.module.scss';
 import logo from 'assets/svg/logo.svg'
@@ -7,7 +9,6 @@ import BtnOpenDoor from '@/components/control/btnOpenDoor';
 import MenuIcon from '@/assets/svg/menuIcon';
 import HomeIcon from '@/assets/svg/homeIcon';
 import SettingIcon from '@/assets/svg/settingIcon';
-import DownloadIcon from '@/assets/svg/downloadIcon';
 import { Input } from '@nextui-org/react';
 import SearchIcon from '@/assets/svg/searchIcon';
 import styles from "styles/navBar.module.scss";
@@ -17,6 +18,12 @@ const User = () => {
     const route = useRouter();
     return (
         <div className={userStyle.container}>
+            <Head>
+                <title>Door Management - User</title>
+                <meta name="description" content="Door" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
             <div className={userStyle.navBar}>
                 <MenuIcon style={{ margin: 'auto 0' }} />
 
@@ -55,13 +62,20 @@ const User = () => {
             </main>
 
             <div className={userStyle.bottomBar}>
-                <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={()=>{route.push('/user/account')}} />
+                <Link href='/user/account'>
+                    <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
+                </Link>
+                {/* <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={() => { route.push('/user/account') }} /> */}
 
-                <div className={userStyle.homeBtn} onClick={()=>{route.push('/user')}}>
-                    <HomeIcon />
-                </div>
+                <Link href='/user'>
+                    <div className={userStyle.homeBtn}>
+                        <HomeIcon />
+                    </div>
+                </Link>
 
-                <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
+                <Link href="/admin">
+                    <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
+                </Link>
             </div>
         </div>
     );

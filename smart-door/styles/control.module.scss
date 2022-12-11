@@ -12,6 +12,45 @@
         font-size: 21px;
         color: white;
         padding: 18px 20px;
+        letter-spacing: 0.5px;
+    }
+
+    .btnContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .btn {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0px;
+            color: black;
+            font-size: 26px;
+            font-weight: bold;
+            background: $my-gradient-color;
+        }
+    }
+}
+
+
+
+
+
+.openDoorWeb {
+    width: 280px;
+    height: 280px;
+    margin: 35px 30px;
+    border-radius: 8px;
+    background-color: #252525;
+
+    .title {
+        position: absolute;
+        font-size: 21px;
+        color: white;
+        padding: 18px 20px;
+        letter-spacing: 0.5px;
     }
 
     .btnContainer {

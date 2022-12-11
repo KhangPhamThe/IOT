@@ -4,11 +4,13 @@ import styles from 'styles/control.module.scss';
 
 
 interface BtnOpenDoorProps {
-    size: "phone" | "web";
-    state?: number;  // 0 is open, 1 is off
+    size: "phone" | "web",
+    props?: any,
+    style?: React.CSSProperties,
+    className?: string,
 }
 
-const BtnOpenDoor = ({size, state=0}:BtnOpenDoorProps) => {
+const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
     const containerStyle = useMemo(()=>{
         return size == "phone" ? styles.openDoorPhone : styles.openDoorWeb;
     },[size])
@@ -28,8 +30,8 @@ const BtnOpenDoor = ({size, state=0}:BtnOpenDoorProps) => {
     // },[height])
 
     return (
-        <div className={containerStyle} id='openDoor-container'>
-            <h2 className={styles.title}>Điều khiển cửa</h2>
+        <div className={containerStyle} id='openDoor-container' {...props}>
+            <h2 className={styles.title}>Door controller</h2>
             <div className={styles.btnContainer}>
                 <button className={styles.btn}>OPEN</button>
             </div>

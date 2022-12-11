@@ -1,12 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from 'styles/Home.module.scss'
 import LeftBar from '../components/home/leftBar'
-import { Navbar as Nav, Text } from "@nextui-org/react";
 import NavBar from 'components/home/navBar'
-import { Provider } from 'react-redux'
-import { store } from 'store'
+import Link from 'next/link'
+
 
 const Home: NextPage = () => {
   return (
