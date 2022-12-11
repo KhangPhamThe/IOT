@@ -7,18 +7,19 @@ import { store } from "store";
 import { getCookieUserJWT } from "utils/users.utils";
 import { useRouter } from "next/router";
 import { MQTTProvider } from "@/components/context/MQTTProvider";
+// import { Connector } from "mqtt-react-hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
+  const router = useRouter();
   return (
-    <Provider store={store}>      
-      <NextUIProvider>
-        <AuthProvider>
-          <MQTTProvider>
+    <Provider store={store}>
+      <MQTTProvider>
+        <NextUIProvider>
+          <AuthProvider>
             <Component {...pageProps} />
-          </MQTTProvider>
-        </AuthProvider>
-      </NextUIProvider>
+          </AuthProvider>
+        </NextUIProvider>
+      </MQTTProvider>
     </Provider>
   );
 }
