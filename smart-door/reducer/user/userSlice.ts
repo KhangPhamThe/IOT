@@ -10,7 +10,7 @@ export const signIn = createAsyncThunk(
         
         if (!rs?.err) {
             const { token, tokenType, expireTime } = rs;
-            const accessToken = `${tokenType} ${token}`;
+            const accessToken = `${token}`;
             // Save access token to storage
             localStorage.setItem("access_token", accessToken);
             localStorage.setItem("expired_at", expireTime); // expired_at is a timestamp    
