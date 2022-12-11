@@ -17,7 +17,8 @@ export const AuthProvider = (props: Props) => {
   useEffect(() => {
     const jwt =  getCookieUserJWT()
     if (!jwt) {
-      route.push('/general/login')
+      if (route.pathname != '/user' && route.pathname != '/' && route.pathname != "/user/account")
+        route.push('/general/login')
     } 
     else {
       dispatch(getUserProfile({jwt}))

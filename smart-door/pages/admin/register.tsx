@@ -1,6 +1,6 @@
 import { Input, Spacer, StyledButton } from '@nextui-org/react'
 import React, { useContext, useEffect, useState } from 'react'
-import AuthContext from '../../components/context/AuthProvider'
+import AuthContext from 'components/context/AuthProvider'
 
 type Props = {
 

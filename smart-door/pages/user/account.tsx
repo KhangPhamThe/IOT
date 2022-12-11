@@ -23,7 +23,7 @@ const User = () => {
                     <Image src={logo} />
                 </div>
 
-                <h3 className={userStyle.name}>Phạm Thế Khang</h3>I xz
+                <h3 className={userStyle.name}>Phạm Thế Khang</h3>
             </main>
 
             <div className={userStyle.bottomBar}>

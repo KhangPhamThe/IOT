@@ -7,4 +7,5 @@ export interface IsvgIconProps {
     style?: React.CSSProperties,
     props?: any,
     className?: string,
+    onClick?: (e?:any)=>void,
 }

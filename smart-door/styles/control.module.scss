@@ -5,10 +5,13 @@
     height: 300px;
     margin: 0 auto;
     border-radius: 8px;
-    background-color: blue;
+    background-color: #252525;
 
     .title {
         position: absolute;
+        font-size: 21px;
+        color: white;
+        padding: 18px 20px;
     }
 
     .btnContainer {
@@ -22,8 +25,8 @@
             height: 150px;
             border-radius: 50%;
             border: 0px;
-            // color: white;
-            font-size: 15px;
+            color: black;
+            font-size: 26px;
             font-weight: bold;
             background: $my-gradient-color;
         }
