@@ -1,3 +1,5 @@
+import Head from 'next/head';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import userStyle from 'styles/user.module.scss';
@@ -15,12 +17,19 @@ import AccountIcon from '@/assets/svg/account';
 import { userAPI } from 'pages/api/users/authenAPI';
 import { useAppSelector } from 'hooks';
 
+
 const User = () => {
     const route = useRouter();
     const currUserSelection = useAppSelector(state => state.user);
 
     return (
         <div className={userStyle.container}>
+            <Head>
+                <title>Door Management - User</title>
+                <meta name="description" content="Door" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
             <div className={userStyle.navBar}>
                 <MenuIcon style={{ margin: 'auto 0' }} />
 
@@ -33,42 +42,49 @@ const User = () => {
             </div>
 
 
-            <main className={userStyle.accountContainer} style={{width: '90%'}}>
+            <main className={userStyle.accountContainer} style={{ width: '90%' }}>
                 <div className={userStyle.ava}>
                     <img src="https://scontent.fsgn19-1.fna.fbcdn.net/v/t1.18169-9/27858226_2002217240039299_3532918632429742634_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=djLKM2VBJWQAX9oqQA0&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfAcNerg8QvUUQVU8cmz4ygPrQwAMkSaiLsXDjWzveht4w&oe=63BCE77C" />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>First Name</h3>
-                    <input value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled/>
+                    <input value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Last Name</h3>
-                    <input value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled/>
+                    <input value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Email</h3>
-                    <input value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled/>
+                    <input value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled />
                 </div>
-                
+
                 <div className={userStyle.field}>
                     <h3>Role</h3>
-                    <input value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled/>
+                    <input value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled />
                 </div>
 
             </main>
 
 
             <div className={userStyle.bottomBar}>
-                <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={()=>{route.push('/user/account')}} />
+                <Link href='/user/account'>
+                    <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn}/>
+                </Link>
+                {/* <AccountIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={() => { route.push('/user/account') }} /> */}
 
-                <div className={userStyle.homeBtn} onClick={()=>{route.push('/user')}}>
-                    <HomeIcon />
-                </div>
+                <Link href='/user'>
+                    <div className={userStyle.homeBtn}>
+                        <HomeIcon />
+                    </div>
+                </Link>
 
-                <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
+                <Link href="/admin">
+                    <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
+                </Link>
             </div>
         </div>
     );
