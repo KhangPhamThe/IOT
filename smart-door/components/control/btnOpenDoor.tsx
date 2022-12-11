@@ -31,7 +31,7 @@ const BtnOpenDoor = ({size, state=0}:BtnOpenDoorProps) => {
         <div className={containerStyle} id='openDoor-container'>
             <h2 className={styles.title}>Điều khiển cửa</h2>
             <div className={styles.btnContainer}>
-                <button className={styles.btn}>BẬT / TẮT</button>
+                <button className={styles.btn}>OPEN</button>
             </div>
         </div>
     )

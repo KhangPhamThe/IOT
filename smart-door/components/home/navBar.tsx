@@ -1,5 +1,5 @@
 import styles from "styles/navBar.module.scss";
-import { Input, Button, Avatar, Dropdown } from "@nextui-org/react";
+import { Input, Button, Avatar, Dropdown, FormElement } from "@nextui-org/react";
 import SearchIcon from "assets/svg/searchIcon";
 import { useEffect, useRef, useState } from "react";
 import { colorList } from "../../assets/constants";
@@ -14,6 +14,7 @@ import { useAppSelector } from "hooks";
 const NavBar = () => {
   const [hasLogin, setHasLogin] = useState(false);
   const currentUser = useAppSelector((state) => state.user);
+  // const searchBar = useRef<FormElement>(null as any);
   const color = useRef<any>(
     colorList[Math.floor(Math.random() * colorList.length)]
   );
@@ -35,13 +36,15 @@ const NavBar = () => {
     <div className={styles["navBar-container"]}>
       <div className={styles.leftSide}>
         <h2>Dashboard</h2>
+
         <Input
           type="search"
           width="400px"
           placeholder="Search for component"
-          contentRight={<SearchIcon fill="white" size={16} />}
+          contentRight={<SearchIcon fill="#7A7A7A" size={16} />}
           className={styles.searchBar}
           style={{ visibility: "visible" }}
+          // ref={searchBar}
         />
       </div>
 
