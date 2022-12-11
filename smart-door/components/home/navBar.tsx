@@ -9,11 +9,13 @@ import LogInIcon from "@/assets/svg/logInIcon";
 import LogOutIcon from "@/assets/svg/logOutIcon";
 import RegisterIcon from "@/assets/svg/registerIcon";
 import ProfileIcon from "@/assets/svg/profileIcon";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { onLogout } from "reducer/user/userSlice";
 
 const NavBar = () => {
   const [hasLogin, setHasLogin] = useState(false);
   const currentUser = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch()
   // const searchBar = useRef<FormElement>(null as any);
   const color = useRef<any>(
     colorList[Math.floor(Math.random() * colorList.length)]
@@ -28,8 +30,7 @@ const NavBar = () => {
   }, [currentUser]);
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("expired_at");
+    dispatch(onLogout())
   }
 
   return (

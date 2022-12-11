@@ -12,21 +12,25 @@ const AuthContext = createContext({});
 
 export const AuthProvider = (props: Props) => {
   const currUserSelection = useAppSelector(state => state.user);
+
   const dispatch = useAppDispatch()
   const route = useRouter()
   useEffect(() => {
-    const jwt =  getCookieUserJWT()
-    if (!jwt) {
-      if (route.pathname != '/user' && route.pathname != '/' && route.pathname != "/user/account")
+    const jwt =  getCookieUserJWT()  || ""
+    dispatch(getUserProfile({jwt}))
+  }, [route, dispatch])
+
+  useEffect(() =>  {
+    if  (!currUserSelection?.current) {
+      if (route.pathname !== '/general/login') {
         route.push('/general/login')
-    } 
-    else {
-      dispatch(getUserProfile({jwt}))
-      if (route.pathname == '/general/login') {
+      }
+    } else {
+      if (route.pathname === '/general/login') {
         route.push('/')
       }
     }
-  }, [route, dispatch])
+  }, [currUserSelection, route])
 
   return (
     <AuthContext.Provider value={{}}>

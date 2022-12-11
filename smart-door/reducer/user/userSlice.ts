@@ -63,14 +63,14 @@ export interface UserState {
         lastName: string | null;
         avatarURL: string | null;
         role: "user" | "admin" | null;
-    } | {}
+    } | null
 
   listUsers: any,
   error : string | '',
 }
 
 const initialState: UserState = {
-    current: {},
+    current: null,
     listUsers: null ,
     error : ''
 };
@@ -85,7 +85,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addCase(signIn.rejected, (state, action:PayloadAction<any>) => {
-            state.current =  {},            
+            state.current =  null,            
             state.error = action.payload || "error when login";
         })
         .addCase(signIn.fulfilled, (state, action:PayloadAction<any>) => {
@@ -94,7 +94,7 @@ export const userSlice = createSlice({
         })
 
         .addCase(getUserProfile.rejected, (state, action:PayloadAction<any>) => {
-            state.current =  {},            
+            state.current =  null,            
             state.error = action.payload || "error when login";
         })
         .addCase(getUserProfile.fulfilled, (state, action:PayloadAction<any>) => {
@@ -103,7 +103,7 @@ export const userSlice = createSlice({
         })
 
         .addCase(onLogout.fulfilled, (state, action:PayloadAction<any>) => {
-          state.current = {};
+          state.current = null;
           state.listUsers = null;
           state.error = '';
       })
