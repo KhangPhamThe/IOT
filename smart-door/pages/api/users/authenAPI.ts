@@ -61,6 +61,7 @@ export const userAPI = {
   }) => {
     const url = "get-user-profile";
     const requestHeader: HeadersInit = new Headers();
+    console.log("abc", data.jwt)
     requestHeader.set("auth-token", data.jwt);
 
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {

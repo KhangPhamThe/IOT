@@ -17,6 +17,7 @@ export const AuthProvider = (props: Props) => {
   const route = useRouter()
   useEffect(() => {
     const jwt =  getCookieUserJWT() || ''
+    console.log(jwt)
     
     if (jwt) {
       dispatch(getUserProfile({jwt}))
