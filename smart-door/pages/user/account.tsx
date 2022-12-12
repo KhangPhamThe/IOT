@@ -1,25 +1,17 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import userStyle from 'styles/user.module.scss';
 import logo from 'assets/svg/logo.svg'
 import QuestionIcon2 from '@/assets/svg/questionIcon2';
-import BtnOpenDoor from '@/components/control/btnOpenDoor';
 import MenuIcon from '@/assets/svg/menuIcon';
 import HomeIcon from '@/assets/svg/homeIcon';
 import SettingIcon from '@/assets/svg/settingIcon';
-import DownloadIcon from '@/assets/svg/downloadIcon';
-import { Input } from '@nextui-org/react';
-import SearchIcon from '@/assets/svg/searchIcon';
-import styles from "styles/navBar.module.scss";
 import AccountIcon from '@/assets/svg/account';
-import { userAPI } from 'pages/api/users/authenAPI';
 import { useAppSelector } from 'hooks';
 
 
 const User = () => {
-    const route = useRouter();
     const currUserSelection = useAppSelector(state => state.user);
 
     return (
