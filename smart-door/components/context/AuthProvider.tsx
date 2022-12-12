@@ -29,7 +29,8 @@ export const AuthProvider = (props: Props) => {
       }
     } else {
       if (route.pathname == '/general/login') {
-        route.push('/')
+        if (currUserSelection.current.role === 'admin') route.push('/admin')
+        else route.push('/user')
       }
     }
   }, [currUserSelection, route])
