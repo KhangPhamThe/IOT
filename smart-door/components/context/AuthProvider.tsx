@@ -16,16 +16,13 @@ export const AuthProvider = (props: Props) => {
   const dispatch = useAppDispatch()
   const route = useRouter()
   useEffect(() => {
-    const jwt =  getCookieUserJWT() || ''
-    console.log(jwt)
-    
+    const jwt =  getCookieUserJWT() || ''    
     if (jwt) {
       dispatch(getUserProfile({jwt}))
     }
   }, [dispatch])
 
   useEffect(() =>  {
-    console.log("---", currUserSelection?.current)
     if  (!currUserSelection?.current) {
       if (route.pathname != '/general/login') {
         route.push('/general/login')
