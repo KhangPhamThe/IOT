@@ -23,13 +23,22 @@ const options : mqtt.IClientOptions = {
 const topics = [    
     "KhangPhamThe/feeds/dadn.ppl-out",
     "KhangPhamThe/feeds/dadn.ppl-in",
-    "KhangPhamThe/feeds/dadn.allow",
+    "KhangPhamThe/feeds/dadn.alarm",
 ]
 
-const MQTTContext = createContext({});
+export const MQTTContext = createContext({
+    created_at: '', 
+    feed_key: '', 
+    value: ''    
+});
 
 export const MQTTProvider = (props: Props) => {    
     const currUserSelection = useAppSelector(state => state.user);
+    const [newData, setNewData] = useState({
+        created_at: '', 
+        feed_key: '', 
+        value: ''
+    })
     
     useEffect(() => {
         if (currUserSelection?.current) {
@@ -42,6 +51,11 @@ export const MQTTProvider = (props: Props) => {
             });
             client.on('message', (topic:any, payload:any) => {
                 console.log("received message", topic, payload.toString())
+                setNewData({
+                    created_at: new Date().toISOString(), 
+                    feed_key: topic.split('/')[2], 
+                    value: payload.toString()
+                })
             });
 
             return () => {
@@ -54,7 +68,7 @@ export const MQTTProvider = (props: Props) => {
     }, [currUserSelection])
     
     return (
-        <MQTTContext.Provider value={{}}>
+        <MQTTContext.Provider value={newData}>
           {props.children}
         </MQTTContext.Provider>
       );
