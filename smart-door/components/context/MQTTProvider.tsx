@@ -1,6 +1,6 @@
 import { useAppSelector } from 'hooks';
 import React, { createContext, memo, useEffect, useMemo, useState } from 'react'
-import mqtt from 'mqtt'
+import mqtt, { MqttClient } from 'mqtt'
 
 type Props = {
     children: React.ReactNode;
@@ -24,20 +24,23 @@ const topics = [
     "KhangPhamThe/feeds/dadn.ppl-out",
     "KhangPhamThe/feeds/dadn.ppl-in",
     "KhangPhamThe/feeds/dadn.alarm",
+    "KhangPhamThe/feeds/dadn.allow",
 ]
 
 export const MQTTContext = createContext({
     created_at: '', 
     feed_key: '', 
-    value: ''    
+    value: '',
+    client : null,
 });
 
 export const MQTTProvider = (props: Props) => {    
     const currUserSelection = useAppSelector(state => state.user);
-    const [newData, setNewData] = useState({
+    const [newData, setNewData] = useState<any>({
         created_at: '', 
         feed_key: '', 
-        value: ''
+        value: '',
+        client: null,
     })
     
     useEffect(() => {
@@ -54,7 +57,8 @@ export const MQTTProvider = (props: Props) => {
                 setNewData({
                     created_at: new Date().toISOString(), 
                     feed_key: topic.split('/')[2], 
-                    value: payload.toString()
+                    value: payload.toString(),
+                    client: client,
                 })
             });
 
