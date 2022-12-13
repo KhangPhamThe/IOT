@@ -2,6 +2,7 @@ import Head from "next/head";
 import NavBar from "components/home/navBar";
 import LeftBar from "components/home/leftBar";
 import styles from "styles/Home.module.scss";
+import adminStyle from "styles/admin.module.scss";
 import BtnOpenDoor from "@/components/control/btnOpenDoor";
 import { useContext, useEffect, useState } from "react";
 import MQTTContext from "@/components/context/MQTTProvider";
@@ -117,17 +118,19 @@ const Admin = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <LeftBar />
+			<main className={styles.main}>
+				<LeftBar />
 
-        <div className={styles.rightSide}>
-          <NavBar />
+				<div className={styles.rightSide}>
+					<NavBar />
 
-          <BtnOpenDoor size="web" style={{}} />
-        </div>
-      </main>
-    </div>
-  );
+					<main className={adminStyle.mainContent}>
+						<BtnOpenDoor size="web" style={{}} />
+					</main>
+				</div>
+			</main>
+		</div>
+	);
 };
 
 export default Admin;

@@ -1,8 +1,7 @@
-import styles from "styles/navBar.module.scss";
 import { Input, Button, Avatar, Dropdown, FormElement } from "@nextui-org/react";
 import SearchIcon from "assets/svg/searchIcon";
 import { useEffect, useRef, useState } from "react";
-import { colorList } from "../../assets/constants";
+import { colorList } from "assets/constants";
 import NotificationIcon from "assets/svg/notificationIcon";
 import QuestionIcon from "assets/svg/questionIcon";
 import LogInIcon from "@/assets/svg/logInIcon";
@@ -11,6 +10,8 @@ import RegisterIcon from "@/assets/svg/registerIcon";
 import ProfileIcon from "@/assets/svg/profileIcon";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { onLogout } from "reducer/user/userSlice";
+import Link from "next/link";
+import styles from "styles/navBar.module.scss";
 
 const NavBar = () => {
   const [hasLogin, setHasLogin] = useState(false);
@@ -67,6 +68,7 @@ const NavBar = () => {
           color={color.current}
           style={{ marginRight: "4px" }}
         />
+
         <Dropdown>
           <Dropdown.Button
             style={{ backgroundColor: "black" }}
@@ -74,7 +76,7 @@ const NavBar = () => {
           {hasLogin ? (
             <Dropdown.Menu style={{ width: "300px" }}>
               <Dropdown.Item icon={<ProfileIcon fill="#252525" />}>
-                Profile
+                <Link href="/admin/account" className={styles.linkNavigate}>Profile</Link>
               </Dropdown.Item>
               <Dropdown.Item icon={<LogOutIcon fill="#252525" />}>
                 <div onClick={handleLogout}>Log out</div>
@@ -83,10 +85,10 @@ const NavBar = () => {
           ) : (
             <Dropdown.Menu style={{ width: "300px" }}>
               <Dropdown.Item icon={<LogInIcon fill="#252525" />}>
-                Log in
+                <Link href="/general/login">Log in</Link>
               </Dropdown.Item>
               <Dropdown.Item icon={<RegisterIcon fill="#252525" />}>
-                Register
+                <Link href="/admin/register">Register</Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           )}
