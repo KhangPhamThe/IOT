@@ -6,6 +6,7 @@ import adminStyle from "styles/admin.module.scss";
 import BtnOpenDoor from "@/components/control/btnOpenDoor";
 import { useContext, useEffect, useState } from "react";
 import MQTTContext from "@/components/context/MQTTProvider";
+import Log from "@/components/control/log";
 
 const TYPE_OF_DATA = {
 	ALARM: 'dadn.alarm',
@@ -109,9 +110,9 @@ const Admin = () => {
 
   return (
     <div className={styles.container}>
-			<div>{JSON.stringify(alarmData)}</div>
+			{/* <div>{JSON.stringify(alarmData)}</div>
 			<div>{JSON.stringify(PPLInData)}</div>
-			<div>{JSON.stringify(PPLOutData)}</div>
+			<div>{JSON.stringify(PPLOutData)}</div> */}
       <Head>
         <title>Door Management - Admin</title>
         <meta name="description" content="Door" />
@@ -125,7 +126,26 @@ const Admin = () => {
 					<NavBar />
 
 					<main className={adminStyle.mainContent}>
-						<BtnOpenDoor size="web" style={{}} />
+						<div className={adminStyle.row}>
+							<BtnOpenDoor size="web" style={{}} />
+							<div className={adminStyle.box}>Box</div>
+						</div>
+
+						<div className={adminStyle.row}>
+							<Log contents={[
+                {
+                  created_at: '11/12/2022',
+                  text: 'A đi sớm',
+                  levelOfImportance: 'medium',
+                }, 
+                {
+                  created_at: '10/12/2022',
+                  text: 'B đi trễ',
+                  levelOfImportance: 'high',
+                }
+              ]} />
+							<div className={adminStyle.box}>Box</div>
+						</div>
 					</main>
 				</div>
 			</main>
