@@ -15,7 +15,7 @@ interface LogProps {
 }
 
 const Log = ({contents}:LogProps) => {
-    const textStyle = useCallback((levelOfImportance: string)=>{
+    const textStyle = useCallback((levelOfImportance: string | undefined)=>{
         switch (levelOfImportance) {
             case 'high':
                 return styles.high + ' ' + styles.text

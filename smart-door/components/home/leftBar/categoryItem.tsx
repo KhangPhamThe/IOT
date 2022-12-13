@@ -7,12 +7,13 @@ interface CategoryItemProps {
     icon: React.ReactNode;
     title: string;
     active?: boolean;
+    setActive?: () => void;
     unavailable?: boolean;
     url?: string;
     style?: React.CSSProperties;
 }
 
-const CategoryItem = ({ icon, title, style, active = false, unavailable, url }: CategoryItemProps) => {
+const CategoryItem = ({ icon, title, style, active = false, unavailable, url, setActive }: CategoryItemProps) => {
     const finalClassName = useMemo(() => {
         let returnedClass = styles.categoryItem;
         if (active) returnedClass += ` ${generalStyles.whiteText}`;
