@@ -75,4 +75,21 @@ export const userAPI = {
     localStorage.removeItem("access_token");
     localStorage.removeItem("expired_at");
   },    
+
+  createNewSignalInOutDoor: async (data: {
+    email: string;
+  }) => {
+    const url = "admin/create-in-out-door"
+
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set('Content-Type', "application/json");
+    requestHeader.set("auth-token", getCookieUserJWT() || '');    
+
+    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+      method: "POST",      
+      headers: requestHeader,
+      body: JSON.stringify(data)
+    })
+    return rs.json();
+  }
 };

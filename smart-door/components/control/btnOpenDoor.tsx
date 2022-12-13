@@ -1,4 +1,6 @@
 import useHasRenderUI from 'common/utils/useHasRenderUI';
+import { useAppSelector } from 'hooks';
+import { userAPI } from 'pages/api/users/authenAPI';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import styles from 'styles/control.module.scss';
 import MQTTContext from '../context/MQTTProvider';
@@ -24,6 +26,7 @@ interface BtnOpenDoorProps {
 const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
 
     const [isDoorOpen, setIsDoorOpen] = useState(false)
+    const currentUser = useAppSelector(state => state.user)
     const MQTTNewData = useContext<any>(MQTTContext)
 
     const containerStyle = useMemo(()=>{
@@ -76,8 +79,11 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
             MQTTNewData?.client?.publish(ADF_MQTT_URL.ALLOW, JSON.stringify({
                 value: "ON"
             }))
+            await userAPI.createNewSignalInOutDoor({
+                email: currentUser?.current?.email || ''
+            })
         }
-    }        
+    }
 
     // const [height, setHeight] = useState('1px');
     // const hasRenderUI = useHasRenderUI('openDoor-container');
