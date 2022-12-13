@@ -21,6 +21,11 @@ const ADF_URL = {
     `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.PPL_OUT}/data`,
 };
 
+// interface IAlarmData {
+//   created_at: string;
+//   value: string;
+// }
+
 const Admin = () => {
   const [alarmData, setAlarmData] = useState([]);
   const [PPLInData, setPPLInData] = useState([]);
@@ -37,7 +42,7 @@ const Admin = () => {
           const { created_at, feed_key, value } = item;
           tmp.push({
             created_at,
-            feed_key,
+            // feed_key,
             value,
           });
         });
@@ -54,7 +59,7 @@ const Admin = () => {
           const { created_at, feed_key, value } = item;
           tmp.push({
             created_at,
-            feed_key,
+            // feed_key,
             value,
           });
         });
@@ -71,7 +76,7 @@ const Admin = () => {
           const { created_at, feed_key, value } = item;
           tmp.push({
             created_at,
-            feed_key,
+            // feed_key,
             value,
           });
         });
@@ -110,9 +115,9 @@ const Admin = () => {
 
   return (
     <div className={styles.container}>
-			{/* <div>{JSON.stringify(alarmData)}</div>
-			<div>{JSON.stringify(PPLInData)}</div>
-			<div>{JSON.stringify(PPLOutData)}</div> */}
+			<div>{JSON.stringify(alarmData)}</div>
+			{/* <div>{JSON.stringify(PPLInData)}</div> */}
+			{/* <div>{JSON.stringify(PPLOutData)}</div> */}
       <Head>
         <title>Door Management - Admin</title>
         <meta name="description" content="Door" />

@@ -48,11 +48,13 @@ export const userAPI = {
     requestHeader.set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
     requestHeader.set("auth-token", getCookieUserJWT() || '');
 
+    console.log("call api createNewAccount")
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {
       method: "POST",
       headers: requestHeader,
       body: encodedBody,
     });
+    console.log("rs.json", rs.json)
     return rs.json();
   },
 

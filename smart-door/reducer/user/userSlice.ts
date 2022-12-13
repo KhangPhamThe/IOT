@@ -33,7 +33,8 @@ export const createNewAccount = createAsyncThunk(
     avatarURL?: string | undefined;
     role: string;
   }) => {
-    const rs =  userAPI.createNewAccount(params);
+    const rs = await userAPI.createNewAccount(params);
+    console.log("rs", rs)
     return rs;
   }
 );
