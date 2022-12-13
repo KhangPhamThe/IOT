@@ -7,6 +7,9 @@ import BtnOpenDoor from "@/components/control/btnOpenDoor";
 import { useContext, useEffect, useState } from "react";
 import MQTTContext from "@/components/context/MQTTProvider";
 import Log from "@/components/control/log";
+import { evaluateLogImportance } from "utils/control.utils";
+import { useTime } from "utils/time.utils";
+import { useRouter } from "next/router";
 
 const TYPE_OF_DATA = {
 	ALARM: 'dadn.alarm',
@@ -27,11 +30,13 @@ const ADF_URL = {
 // }
 
 const Admin = () => {
-  const [alarmData, setAlarmData] = useState([]);
-  const [PPLInData, setPPLInData] = useState([]);
-  const [PPLOutData, setPPLOutData] = useState([]);
+  const route = useRouter();
+  const [alarmData, setAlarmData] = useState<any>([]);
+  const [PPLInData, setPPLInData] = useState<any>([]);
+  const [PPLOutData, setPPLOutData] = useState<any>([]);
 	const MQTTNewData = useContext(MQTTContext)
   useEffect(() => {
+    console.log("reun this line")
     fetch(ADF_URL.ALARM)
       .then((rs) => {
         return rs.json();
@@ -40,10 +45,13 @@ const Admin = () => {
         const tmp: any = [];
         json?.map((item: any) => {
           const { created_at, feed_key, value } = item;
+          const {date, time} = useTime(created_at)
           tmp.push({
             created_at,
-            // feed_key,
+            date,
+            time,
             value,
+            levelOfImportance: evaluateLogImportance(value),
           });
         });
         setAlarmData(tmp);
@@ -59,7 +67,6 @@ const Admin = () => {
           const { created_at, feed_key, value } = item;
           tmp.push({
             created_at,
-            // feed_key,
             value,
           });
         });
@@ -76,13 +83,17 @@ const Admin = () => {
           const { created_at, feed_key, value } = item;
           tmp.push({
             created_at,
-            // feed_key,
             value,
           });
         });
         setPPLOutData(tmp);
       });
-  }, []);
+  }, [route.pathname]);
+
+  // useEffect(()=>{
+  //   console.log(route.pathname)
+  //   console.log(JSON.stringify(alarmData))
+  // },[alarmData])
 
 	useEffect(() => {
 		switch (MQTTNewData.feed_key) {
@@ -115,7 +126,7 @@ const Admin = () => {
 
   return (
     <div className={styles.container}>
-			<div>{JSON.stringify(alarmData)}</div>
+			{/* <div>{JSON.stringify(alarmData)}</div> */}
 			{/* <div>{JSON.stringify(PPLInData)}</div> */}
 			{/* <div>{JSON.stringify(PPLOutData)}</div> */}
       <Head>
@@ -137,18 +148,7 @@ const Admin = () => {
 						</div>
 
 						<div className={adminStyle.row}>
-							<Log contents={[
-                {
-                  created_at: '11/12/2022',
-                  text: 'A đi sớm',
-                  levelOfImportance: 'medium',
-                }, 
-                {
-                  created_at: '10/12/2022',
-                  text: 'B đi trễ',
-                  levelOfImportance: 'high',
-                }
-              ]} />
+							<Log contents={alarmData}/>
 							<div className={adminStyle.box}>Box</div>
 						</div>
 					</main>

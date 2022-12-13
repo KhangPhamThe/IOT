@@ -1,10 +1,12 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import styles from 'styles/control.module.scss';
 
 interface Icontent {
-    created_at: string | Date,
-    text: string,
+    date: string,
+    time: string,
+    value: string,
     levelOfImportance?: 'high' | 'medium' | 'low',
+    created_at: string,
 }
 
 interface LogProps {
@@ -14,8 +16,10 @@ interface LogProps {
     className?: string,
 }
 
-const Log = ({contents}:LogProps) => {
-    const textStyle = useCallback((levelOfImportance: string | undefined)=>{
+const MAX_LOG_SIZE = 100;
+
+const Log = ({ contents, ...props }: LogProps) => {
+    const textStyle = useCallback((levelOfImportance: string | undefined) => {
         switch (levelOfImportance) {
             case 'high':
                 return styles.high + ' ' + styles.text
@@ -26,17 +30,19 @@ const Log = ({contents}:LogProps) => {
             default:
                 return styles.text
         }
-    },[])
-    
+    }, [])
+
     return (
-        <div className={styles.logContainer}>
+        <div className={styles.logContainer} {...props}>
             <div className={styles.title}>Noticeable Log</div>
             <div className={styles.buffer}>
-                {contents.map((content, index) => (
-                    <p className={textStyle(content.levelOfImportance)} key={index}>
-                        {`${content.created_at}: ${content.text}`}
-                    </p>
-                ))}
+                {contents.map((content, index) => {
+                    if (index < MAX_LOG_SIZE) return (
+                        <p className={textStyle(content.levelOfImportance)} key={index}>
+                            {`${content.date} [${content.time}]: ${content.value}`}
+                        </p>
+                    )
+                })}
             </div>
         </div>
     )
