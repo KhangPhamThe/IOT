@@ -91,5 +91,22 @@ export const userAPI = {
       body: JSON.stringify(data)
     })
     return rs.json();
+  },
+
+  getAllSignalInOutDoor: async () => {
+    const url = "admin/get-all-in-out-door"
+    const rs = await fetch(`${DOMAIN_URL}/${url}`)
+    return rs.json();
+  },
+
+  getSignalInOutByEmail: async (data : {
+    email: string
+  }) => {
+    const url = "admin/get-id-in-out-door"
+    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+      method: "GET",
+      body: JSON.stringify(data)
+    })
+    return rs.json();
   }
 };
