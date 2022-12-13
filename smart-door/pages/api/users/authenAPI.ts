@@ -101,6 +101,12 @@ export const userAPI = {
     return rs.json();
   },
 
+  getCountInOutDoor: async () => {
+    const url = "admin/get-count-in-out-door"
+    const rs = await fetch(`${DOMAIN_URL}/${url}`)
+    return rs.json();
+  },
+
   getSignalInOutByEmail: async (data : {
     email: string
   }) => {
