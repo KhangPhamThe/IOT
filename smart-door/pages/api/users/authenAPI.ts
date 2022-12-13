@@ -1,4 +1,4 @@
-import { getCookieUserJWT } from './../../../utils/users.utils';
+import { getCookieUserJWT } from 'utils/users.utils';
 const DOMAIN_URL = "https://iot-backend-deploy.vercel.app/api";
 
 export const userAPI = {
