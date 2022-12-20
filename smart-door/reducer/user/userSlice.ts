@@ -1,4 +1,4 @@
-import { userAPI } from "./../../pages/api/users/authenAPI";
+import { userAPI } from "pages/api/users/authenAPI";
 import { createAsyncThunk, createSlice, isRejectedWithValue, PayloadAction } from "@reduxjs/toolkit";
 
 // THUNK API

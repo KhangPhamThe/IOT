@@ -85,7 +85,7 @@ export const userAPI = {
 
     const requestHeader: HeadersInit = new Headers();
     requestHeader.set('Content-Type', "application/json");
-    requestHeader.set("auth-token", getCookieUserJWT() || '');    
+    requestHeader.set("auth-token", getCookieUserJWT() || '');
 
     const rs = await fetch(`${DOMAIN_URL}/${url}`, {
       method: "POST",      
@@ -103,7 +103,13 @@ export const userAPI = {
 
   getCountInOutDoor: async () => {
     const url = "admin/get-count-in-out-door"
-    const rs = await fetch(`${DOMAIN_URL}/${url}`)
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("auth-token", getCookieUserJWT() || '');
+
+    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+      method: "GET",
+      headers: requestHeader,
+    })
     return rs.json();
   },
 

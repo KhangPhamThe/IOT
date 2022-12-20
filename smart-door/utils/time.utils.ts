@@ -1,4 +1,4 @@
-export const useTime = (time:string) => {
+export const parseTime = (time:string) => {
     const dateTimeGr = time.split('T');
     const dateGr = dateTimeGr[0].split('-');
     const timeGr = dateTimeGr[1].split(':');
