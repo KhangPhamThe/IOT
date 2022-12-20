@@ -40,8 +40,11 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
             return rs.json();
             })
             .then((json) => {
-                const {  value } = json[json.length - 1];
-                if (value === "ON")  {
+                // console.log(json)
+                // console.log(json[json.length - 1])
+                const {  value } = json[0];
+                console.log(value, value === "1")
+                if (value === "1")  {     // ON
                     setIsDoorOpen(true)
                 }
                 else {
@@ -52,7 +55,7 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
 
     useEffect(() => {
         if (MQTTNewData.feed_key == TYPE_OF_DATA.ALLOW) {
-            if (MQTTNewData.value == "ON") {
+            if (MQTTNewData.value == "1") {   // ON
                 setIsDoorOpen(true)
             } else {
                 setIsDoorOpen(false)
@@ -68,7 +71,7 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
             })
             .then((json) => {
                 const {  value } = json[json.length - 1];
-                if (value === "ON")  {
+                if (value === "1")  {     // ON
                     isOpening = true                    
                 } else {
                     isOpening = false
@@ -77,7 +80,7 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
 
         if (!isOpening) {
             MQTTNewData?.client?.publish(ADF_MQTT_URL.ALLOW, JSON.stringify({
-                value: "ON"
+                value: "1"  // ON
             }))
             await userAPI.createNewSignalInOutDoor({
                 email: currentUser?.current?.email || ''
@@ -89,7 +92,7 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
         <div className={containerStyle} id='openDoor-container' {...props}>
             <h2 className={styles.title}>Door controller</h2>
             <div className={styles.btnContainer}>
-                <button onClick={handleOpenDoor} className={styles.btn}>{isDoorOpen ? "OPEN" : "CLOSING"}</button>
+                <button onClick={handleOpenDoor} className={isDoorOpen ? styles.btnDisable : styles.btn} disabled={isDoorOpen}>{isDoorOpen ? "OPENING" : "OPEN"}</button>
             </div>
         </div>
     )

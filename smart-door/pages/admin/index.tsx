@@ -2,7 +2,7 @@ import Head from "next/head";
 import NavBar from "components/home/navBar";
 import LeftBar from "components/home/leftBar";
 import BtnOpenDoor from "@/components/control/btnOpenDoor";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import MQTTContext from "@/components/context/MQTTProvider";
 import Log from "@/components/control/log";
 import { evaluateLogImportance } from "utils/control.utils";
@@ -14,7 +14,7 @@ import styles from "styles/Home.module.scss";
 import adminStyle from "styles/admin.module.scss";
 import controlStyle from "styles/control.module.scss";
 import TextLog from "@/components/control/TextLog";
-
+import { useAppSelector } from 'hooks';
 
 const TYPE_OF_DATA = {
   ALARM: 'dadn.alarm',
@@ -36,21 +36,37 @@ const ADF_URL = {
 
 const Admin = () => {
   const route = useRouter();
+  // const currUserSelection = useAppSelector(state => state.user);
   const [alarmData, setAlarmData] = useState<any>([]);
   const [totalInOut, setTotalInOut] = useState<any>([]);
+
+  // const [emailInput, setEmailInput] = useState("nhan99999@gmail.com");
+  // const [dataById, setDataById] = useState<any>([]);
+
   const [PPLInData, setPPLInData] = useState<any>([]);
   const [PPLOutData, setPPLOutData] = useState<any>([]);
   const MQTTNewData = useContext(MQTTContext);
 
+
   useEffect(() => {
     (async () => {
       const rs = await userAPI.getCountInOutDoor();
-      console.log(JSON.stringify(rs))
-      console.log(rs['7'] === null);
-      console.log(rs['7'] === undefined)
       setTotalInOut(rs);
     })();
   },[route.pathname])
+
+
+  // useEffect(() => {
+  //   if (emailInput)
+  //     (async () => {
+  //       const rs = await userAPI.getSignalInOutByEmail({email: emailInput});
+  //       const timeArr:string[] = [];
+  //       rs.map((item:any)=>{
+  //         timeArr.push(item?.createdAt)
+  //       })
+  //       setDataById(timeArr);
+  //     })();
+  // },[route.pathname, emailInput])
 
   useEffect(() => {
     fetch(ADF_URL.ALARM)

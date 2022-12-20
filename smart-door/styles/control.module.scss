@@ -31,6 +31,17 @@
             font-weight: bold;
             background: $my-gradient-color;
         }
+
+        .btnDisable {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0px;
+            color: black;
+            font-size: 26px;
+            font-weight: bold;
+            background: $my-gradient-color;
+        }
     }
 }
 
@@ -67,6 +78,17 @@
             font-size: 26px;
             font-weight: bold;
             background: $my-gradient-color;
+        }
+
+        .btnDisable {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 0px;
+            color: black;
+            font-size: 26px;
+            font-weight: bold;
+            background: #505050;
         }
     }
 }
@@ -142,6 +164,7 @@
         }
     }
 }
+
 .barChart {
     flex: 2;
     border: solid 2px #252525;
@@ -161,7 +184,8 @@
     margin-left: 20px;
     border-radius: 10px;
 
-    .title, .title p {
+    .title,
+    .title p {
         font-size: 16px;
         font-weight: bold;
         color: white;
@@ -177,6 +201,7 @@
 
     .scrollable {
         overflow: scroll;
+        height: calc(297px - 40px);
     }
 
     .left {
@@ -185,8 +210,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         p {
             margin: 0px;
+            letter-spacing: 0.5px;
         }
     }
 
@@ -202,6 +229,19 @@
         height: 100%;
         position: relative;
     }
+
+    .timeTitle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+
+        p {
+            margin: 0;
+            height: fit-content;
+            position: absolute;
+        }
+    }
 }
 
 .point {
@@ -211,14 +251,24 @@
     border-radius: 50%;
     position: absolute;
     right: 10px;
+
+    display: flex;
+    align-items: center;
 }
 
 .arrowRight {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-left: 16px solid #7a7a7a;
     position: absolute;
     right: 10px;
-  }
+}
+
+.bar {
+    height: 4px;
+    position: absolute;
+    background-color: #7a7a7a;
+    // min-width: 35px;
+}

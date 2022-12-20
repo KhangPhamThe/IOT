@@ -71,7 +71,20 @@ export const userAPI = {
       mode: "cors",
     });
     return rs.json();
-  },  
+  },
+
+  getAllUserProfile: async () => {
+    const url = "admin/all-users";
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("auth-token", getCookieUserJWT() || '');
+
+    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+      method: "GET",
+      headers: requestHeader,
+      mode: "cors",
+    });
+    return rs.json();
+  },
 
   onLogOutAccount: async () => {
     localStorage.removeItem("access_token");
@@ -117,9 +130,11 @@ export const userAPI = {
     email: string
   }) => {
     const url = "admin/get-id-in-out-door"
-    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+    const requestHeader: HeadersInit = new Headers();
+    requestHeader.set("auth-token", getCookieUserJWT() || '');
+    const rs = await fetch(`${DOMAIN_URL}/${url}?email=${data.email}`, {
       method: "GET",
-      body: JSON.stringify(data)
+      headers: requestHeader,
     })
     return rs.json();
   }
