@@ -10,6 +10,8 @@ const Point = ({ index, type, hour, position, nextHour }: any) => {
     const finalPosition = position || String((hour - 7) * 35) + "px";
     const finalWidth = String((nextHour - hour)*35) + "px";
 
+    if (!position && (hour < 7 || hour > 21)) return <></>;
+
     if (type === "in" || index % 2 === 0) return (
         <div className={controlStyle.point} style={{ left: finalPosition }}>
             <div className={controlStyle.bar} style={{left: '8px', width: finalWidth}}></div>
@@ -32,7 +34,7 @@ const timeParsing = (jsonDates: string[]) => {
             date: curDate.toLocaleDateString('pt-PT'),
             hours: [],
         }
-        if (tempObj.date === '19/12/2022') {
+        if (tempObj.date === '15/12/2022') {
             tempObj.hours = [7, 13, 16, 20];
         }
         for (let jsonDate of jsonDates) {
@@ -44,8 +46,8 @@ const timeParsing = (jsonDates: string[]) => {
         returnVal.push(tempObj);
     }
 
+    console.log("returnVal: ", returnVal);
     return returnVal
-    // today.toLocaleDateString('pt-PT')
 }
 
 const TextLog = () => {
@@ -86,12 +88,12 @@ const TextLog = () => {
 
     return (
         <div className={controlStyle.TextLogContainer}>
-            <div>
+            <div className={controlStyle.inputField}>
                 <input ref={emailRef} />
                 <button onClick={handleOnClick}>send</button>
             </div>
 
-            <div className={controlStyle.gr}>
+            <div className={controlStyle.gr + " " + controlStyle.header}>
                 <div className={controlStyle.left + " " + controlStyle.title}>
                     <p>Day</p>
                 </div>

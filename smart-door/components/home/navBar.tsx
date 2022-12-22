@@ -61,13 +61,17 @@ const NavBar = () => {
           style={{ backgroundColor: "#252525", marginRight: "15px" }}
           auto
         />
-        <Avatar
+
+        {/* <Avatar
           size="lg"
           textColor="white"
           text="Tus dep trai"
           color={color.current}
           style={{ marginRight: "4px" }}
-        />
+        /> */}
+        <div className={styles.ava}>
+          <img src={currentUser.current?.avatarURL === "a.png" ? "https://scontent.fsgn19-1.fna.fbcdn.net/v/t1.18169-9/27858226_2002217240039299_3532918632429742634_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=djLKM2VBJWQAX9oqQA0&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfAcNerg8QvUUQVU8cmz4ygPrQwAMkSaiLsXDjWzveht4w&oe=63BCE77C" : currentUser.current?.avatarURL || ""} />
+        </div>
 
         <Dropdown>
           <Dropdown.Button

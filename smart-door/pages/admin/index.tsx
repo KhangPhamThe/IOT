@@ -24,27 +24,46 @@ const TYPE_OF_DATA = {
 
 const ADF_URL = {
   ALARM: `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.ALARM}/data`,
-  PPL_IN: `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.PPL_IN}/data`,
-  PPL_OUT:
-    `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.PPL_OUT}/data`,
+  PPL_IN: `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.PPL_IN}/data`, //?start_time=2022-12-20+22:33:22+UTC
+  PPL_OUT: `https://io.adafruit.com/api/v2/KhangPhamThe/feeds/${TYPE_OF_DATA.PPL_OUT}/data`, //?start_time=2022-12-21T07:58:50Z
 };
 
-// interface IAlarmData {
-//   created_at: string;
-//   value: string;
-// }
+
+const timeParsing = (jsonDates: string[]) => {
+  const today = new Date();
+  const returnVal: any = [];
+
+  for (let i = 0; i < 7; i++) {
+    const curHour = new Date();
+    curHour.setDate(today.getDate() - i);
+    let tempObj: any = {
+      date: curHour.toLocaleDateString('pt-PT'),
+      hours: [],
+    }
+    if (tempObj.date === '15/12/2022') {
+      tempObj.hours = [7, 13, 16, 20];
+    }
+    for (let jsonDate of jsonDates) {
+      const date = new Date(jsonDate);
+      if (date.toLocaleDateString() === curHour.toLocaleDateString()) {
+        tempObj.hours.push(date.getHours())
+      }
+    }
+    returnVal.push(tempObj);
+  }
+
+  console.log("returnVal: ", returnVal);
+  return returnVal
+}
 
 const Admin = () => {
   const route = useRouter();
-  // const currUserSelection = useAppSelector(state => state.user);
   const [alarmData, setAlarmData] = useState<any>([]);
   const [totalInOut, setTotalInOut] = useState<any>([]);
 
-  // const [emailInput, setEmailInput] = useState("nhan99999@gmail.com");
-  // const [dataById, setDataById] = useState<any>([]);
-
   const [PPLInData, setPPLInData] = useState<any>([]);
   const [PPLOutData, setPPLOutData] = useState<any>([]);
+  const [totoalInOutV2, setTotalInOutV2] = useState<any>([]);
   const MQTTNewData = useContext(MQTTContext);
 
 
@@ -53,22 +72,25 @@ const Admin = () => {
       const rs = await userAPI.getCountInOutDoor();
       setTotalInOut(rs);
     })();
-  },[route.pathname])
+  }, [route.pathname])
 
-
-  // useEffect(() => {
-  //   if (emailInput)
-  //     (async () => {
-  //       const rs = await userAPI.getSignalInOutByEmail({email: emailInput});
-  //       const timeArr:string[] = [];
-  //       rs.map((item:any)=>{
-  //         timeArr.push(item?.createdAt)
-  //       })
-  //       setDataById(timeArr);
-  //     })();
-  // },[route.pathname, emailInput])
 
   useEffect(() => {
+    const curDate = new Date();
+    const lastDateStart = new Date();
+    lastDateStart.setUTCDate(curDate.getUTCDate() - 1);
+    lastDateStart.setUTCHours(7);
+    lastDateStart.setUTCMinutes(0);
+    lastDateStart.setUTCSeconds(0);
+    lastDateStart.setUTCMilliseconds(0);
+
+    const lastDateEnd = new Date();
+    lastDateEnd.setUTCDate(curDate.getUTCDate() - 1);
+    lastDateEnd.setUTCHours(7);
+    lastDateEnd.setUTCMinutes(0);
+    lastDateEnd.setUTCSeconds(0);
+    lastDateEnd.setUTCMilliseconds(0);
+
     fetch(ADF_URL.ALARM)
       .then((rs) => {
         return rs.json();
@@ -89,7 +111,7 @@ const Admin = () => {
         setAlarmData(tmp);
       })
 
-    fetch(ADF_URL.PPL_IN)
+    fetch(ADF_URL.PPL_IN + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -105,7 +127,7 @@ const Admin = () => {
         setPPLInData(tmp);
       });
 
-    fetch(ADF_URL.PPL_OUT)
+    fetch(ADF_URL.PPL_OUT + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -121,6 +143,16 @@ const Admin = () => {
         setPPLOutData(tmp);
       });
   }, [route.pathname]);
+
+
+  useEffect(() => {
+    const arr = [];
+    for (let data of PPLInData) {
+      const curDate = new Date(data.created_at);
+      const today = new Date();
+
+    }
+  }, [PPLInData, PPLOutData])
 
 
   useEffect(() => {
@@ -155,7 +187,7 @@ const Admin = () => {
   return (
     <div className={styles.container}>
       {/* <div>{JSON.stringify(alarmData)}</div> */}
-      {/* <div>{JSON.stringify(PPLInData)}</div> */}
+      <div>{JSON.stringify(PPLInData)}</div>
       {/* <div>{JSON.stringify(PPLOutData)}</div> */}
       <Head>
         <title>Door Management - Admin</title>

@@ -179,10 +179,28 @@
 
 .TextLogContainer {
     overflow: scroll;
-    border: solid 2px;
+    // border: solid 2px;
     width: 100%;
     margin-left: 20px;
-    border-radius: 10px;
+    // border-radius: 10px;
+
+    .inputField {
+        margin-bottom: 15px;
+
+        input {
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+        }
+
+        button {
+            color: white;
+            // border: solid 2px #7a7a7a;
+            border-bottom-left-radius: 0px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    }
 
     .title,
     .title p {
@@ -199,9 +217,23 @@
         border-bottom: solid 1px;
     }
 
+    .header {
+        border-left: solid 2px;
+        border-right: solid 2px;
+        border-top: solid 2px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
     .scrollable {
         overflow: scroll;
-        height: calc(297px - 40px);
+        height: calc(297px - 85px);
+
+        border-left: solid 2px;
+        border-right: solid 2px;
+        border-top: solid 2px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .left {
@@ -231,6 +263,7 @@
     }
 
     .timeTitle {
+        height: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
