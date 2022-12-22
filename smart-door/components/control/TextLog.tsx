@@ -14,7 +14,7 @@ const Point = ({ index, type, hour, position, nextHour }: any) => {
 
     if (type === "in" || index % 2 === 0) return (
         <div className={controlStyle.point} style={{ left: finalPosition }}>
-            <div className={controlStyle.bar} style={{left: '8px', width: finalWidth}}></div>
+            {nextHour <= 21 && <div className={controlStyle.bar} style={{left: '8px', width: finalWidth}}></div>}
         </div>
     )
     else return (
