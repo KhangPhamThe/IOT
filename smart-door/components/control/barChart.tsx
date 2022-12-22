@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import controlStyle from 'styles/control.module.scss';
 
 interface IData {
-	date: string;
+	hour: string;
 	count: number;
 }
 
@@ -25,13 +25,15 @@ const BarChart = ({ data }: BarChartProps) => {
 
 		let sum = 0;
 		for (let singleData of data) {
-			sum = sum  + singleData.count;
+			sum = sum + singleData.count;
 		}
 		setTotalCount(sum);
-	}, [])
+	}, [data])
 
 	useEffect(() => {
-		if (element) {
+		console.log("data: ", JSON.stringify(data))
+		if (element && data && data.length > 0) {
+			console.log("I'm in", data.length);
 			(async function () {
 				if (myChart) myChart?.destroy && myChart.destroy();
 				myChart = new Chart(
@@ -39,7 +41,7 @@ const BarChart = ({ data }: BarChartProps) => {
 					{
 						type: 'bar',
 						data: {
-							labels: data.map(row => row.date),
+							labels: data.map(row => row.hour),
 							datasets: [
 								{
 									label: 'Traffic of in-out at main hall',
@@ -53,12 +55,26 @@ const BarChart = ({ data }: BarChartProps) => {
 							layout: {
 								padding: 10
 							},
+							responsive: true,
+							aspectRatio: 2,
 						}
 					}
 				);
+				myChart.canvas.width = "400px"
 			})();
 		}
-	}, [element])
+	}, [element, data])
+
+	if (!data || data.length == 0) return (
+		<div className={controlStyle.barChartContainer} style={{ width: '100%', height: '100%' }}>
+			<div className={controlStyle.canvasContainer}>
+			</div>
+			<div className={controlStyle.toolArea}>
+				<h3 className={controlStyle.title}>Total In-Out per Hour</h3>
+				<p className={controlStyle.text}>Total In-Out of day: <span className={controlStyle.imp}>{totalCount}</span></p>
+			</div>
+		</div>
+	)
 
 	return (
 		<div className={controlStyle.barChartContainer} style={{ width: '100%', height: '100%' }}>

@@ -30,29 +30,33 @@ const ADF_URL = {
 
 
 const timeParsing = (jsonDates: string[]) => {
-  const today = new Date();
+  if (jsonDates.length === 0) return false;
+
+  // const today = new Date();
+  const lastDate = new Date();
+  lastDate.setUTCDate(lastDate.getUTCDate() - 1);
+  lastDate.setUTCHours(0);
   const returnVal: any = [];
 
-  for (let i = 0; i < 7; i++) {
-    const curHour = new Date();
-    curHour.setDate(today.getDate() - i);
+  for (let i = 7; i <= 21; i++) {
+    lastDate.setUTCHours(i);
     let tempObj: any = {
-      date: curHour.toLocaleDateString('pt-PT'),
-      hours: [],
+      hour: String(i) + "h",
+      count: 0,
     }
-    if (tempObj.date === '15/12/2022') {
-      tempObj.hours = [7, 13, 16, 20];
-    }
+    // if (tempObj.date === '15/12/2022') {
+    //   tempObj.hours = [7, 13, 16, 20];
+    // }
     for (let jsonDate of jsonDates) {
       const date = new Date(jsonDate);
-      if (date.toLocaleDateString() === curHour.toLocaleDateString()) {
-        tempObj.hours.push(date.getHours())
+      if (date.getUTCHours() === lastDate.getUTCHours()) {
+        tempObj.count += 1;
       }
     }
     returnVal.push(tempObj);
   }
 
-  console.log("returnVal: ", returnVal);
+  // console.log("returnVal123: ", returnVal);
   return returnVal
 }
 
@@ -63,7 +67,7 @@ const Admin = () => {
 
   const [PPLInData, setPPLInData] = useState<any>([]);
   const [PPLOutData, setPPLOutData] = useState<any>([]);
-  const [totoalInOutV2, setTotalInOutV2] = useState<any>([]);
+  const [totalInOutV2, setTotalInOutV2] = useState<any>([]);
   const MQTTNewData = useContext(MQTTContext);
 
 
@@ -76,19 +80,18 @@ const Admin = () => {
 
 
   useEffect(() => {
-    const curDate = new Date();
     const lastDateStart = new Date();
-    lastDateStart.setUTCDate(curDate.getUTCDate() - 1);
+    lastDateStart.setUTCDate(lastDateStart.getUTCDate() - 1);
     lastDateStart.setUTCHours(7);
     lastDateStart.setUTCMinutes(0);
     lastDateStart.setUTCSeconds(0);
     lastDateStart.setUTCMilliseconds(0);
 
     const lastDateEnd = new Date();
-    lastDateEnd.setUTCDate(curDate.getUTCDate() - 1);
-    lastDateEnd.setUTCHours(7);
-    lastDateEnd.setUTCMinutes(0);
-    lastDateEnd.setUTCSeconds(0);
+    lastDateEnd.setUTCDate(lastDateEnd.getUTCDate() - 1);
+    lastDateEnd.setUTCHours(21);
+    lastDateEnd.setUTCMinutes(59);
+    lastDateEnd.setUTCSeconds(59);
     lastDateEnd.setUTCMilliseconds(0);
 
     fetch(ADF_URL.ALARM)
@@ -119,10 +122,11 @@ const Admin = () => {
         const tmp: any = [];
         json?.map((item: any) => {
           const { created_at, feed_key, value } = item;
-          tmp.push({
-            created_at,
-            value,
-          });
+          // tmp.push({
+          //   created_at,
+          //   value,
+          // });
+          tmp.push(created_at);
         });
         setPPLInData(tmp);
       });
@@ -135,10 +139,11 @@ const Admin = () => {
         const tmp: any = [];
         json?.map((item: any) => {
           const { created_at, feed_key, value } = item;
-          tmp.push({
-            created_at,
-            value,
-          });
+          // tmp.push({
+          //   created_at,
+          //   value,
+          // });
+          tmp.push(created_at);
         });
         setPPLOutData(tmp);
       });
@@ -146,11 +151,27 @@ const Admin = () => {
 
 
   useEffect(() => {
-    const arr = [];
-    for (let data of PPLInData) {
-      const curDate = new Date(data.created_at);
-      const today = new Date();
+    if (PPLInData.length > 0 || PPLOutData.length > 0) {
+      const dataIn = timeParsing(PPLInData);
+      console.log("for PPLIn", dataIn)
+      const dataOut = timeParsing(PPLOutData);
+      console.log("for PPLOut", dataOut)
 
+      if (!dataOut) setTotalInOutV2(dataIn);
+      else if (!dataIn) setTotalInOutV2(dataOut);
+      else {
+        const tmpValue: any = [];
+        for (let i=0;i<15;i++) {
+          const tmpObj = {
+            hour: String(i+7) + "h",
+            count: 0,
+          }
+          tmpObj.count = dataIn[i].count + dataOut[i].count;
+          tmpValue.push(tmpObj);
+        }
+        console.log("tmpValue: ", tmpValue);
+        setTotalInOutV2(tmpValue);
+      }
     }
   }, [PPLInData, PPLOutData])
 
@@ -184,6 +205,10 @@ const Admin = () => {
     }
   }, [MQTTNewData, alarmData, PPLInData, PPLOutData])
 
+  useEffect(()=>{
+    console.log("totalInOutV2: ", JSON.stringify(totalInOutV2[0]?.hour))
+  },[totalInOutV2])
+
   return (
     <div className={styles.container}>
       {/* <div>{JSON.stringify(alarmData)}</div> */}
@@ -205,23 +230,7 @@ const Admin = () => {
             <div className={adminStyle.row}>
               <BtnOpenDoor size="web" style={{}} />
               <div className={controlStyle.barChart}>
-                <BarChart data={[
-                  { date: '7:00', count: totalInOut['7'] || 0 },
-                  { date: '8:00', count: totalInOut['8'] || 0 },
-                  { date: '9:00', count: totalInOut['9'] || 0 },
-                  { date: '10:00', count: totalInOut['10'] || 10 },
-                  { date: '11:00', count: totalInOut['11'] || 0 },
-                  { date: '12:00', count: totalInOut['12'] || 0 },
-                  { date: '13:00', count: totalInOut['13'] || 0 },
-                  { date: '14:00', count: totalInOut['14'] || 20 },
-                  { date: '15:00', count: totalInOut['15'] || 0 },
-                  { date: '16:00', count: totalInOut['16'] || 50 },
-                  { date: '17:00', count: totalInOut['17'] || 0 },
-                  { date: '18:00', count: totalInOut['18'] || 0 },
-                  { date: '19:00', count: totalInOut['19'] || 0 },
-                  { date: '20:00', count: totalInOut['20'] || 0 },
-                  { date: '21:00', count: totalInOut['21'] || 0 },
-                ]} />
+                <BarChart data={totalInOutV2} />
               </div>
             </div>
 
