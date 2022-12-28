@@ -1,4 +1,5 @@
 export const parseTime = (time:string) => {
+    const d = new Date(time);
     const dateTimeGr = time.split('T');
     const dateGr = dateTimeGr[0].split('-');
     const timeGr = dateTimeGr[1].split(':');
@@ -11,14 +12,14 @@ export const parseTime = (time:string) => {
     const minute = timeGr[1];
 
     return {
-        year,
-        month,
-        day,
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        day: d.getDate(),
 
-        hour,
-        minute,
+        hour: d.getHours(),
+        minute: d.getMinutes(),
 
-        date: day + '-' + month + '-' + year,
-        time: hour + ':' + minute,
+        date: d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear(),
+        time: d.getHours() + ':' + d.getMinutes(),
     }
 }

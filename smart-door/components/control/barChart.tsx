@@ -31,7 +31,7 @@ const BarChart = ({ data }: BarChartProps) => {
 	}, [data])
 
 	useEffect(() => {
-		console.log("data: ", JSON.stringify(data))
+		// console.log("data: ", JSON.stringify(data))
 		if (element && data && data.length > 0) {
 			console.log("I'm in", data.length);
 			(async function () {

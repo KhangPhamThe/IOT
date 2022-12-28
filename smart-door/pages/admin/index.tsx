@@ -34,12 +34,12 @@ const timeParsing = (jsonDates: string[]) => {
 
   // const today = new Date();
   const lastDate = new Date();
-  lastDate.setUTCDate(lastDate.getUTCDate() - 1);
-  lastDate.setUTCHours(0);
+  lastDate.setDate(lastDate.getDate() - 1);
+  lastDate.setHours(0);
   const returnVal: any = [];
 
   for (let i = 7; i <= 21; i++) {
-    lastDate.setUTCHours(i);
+    lastDate.setHours(i);
     let tempObj: any = {
       hour: String(i) + "h",
       count: 0,
@@ -49,7 +49,7 @@ const timeParsing = (jsonDates: string[]) => {
     // }
     for (let jsonDate of jsonDates) {
       const date = new Date(jsonDate);
-      if (date.getUTCHours() === lastDate.getUTCHours()) {
+      if (date.getHours() === lastDate.getHours()) {
         tempObj.count += 1;
       }
     }
@@ -81,18 +81,18 @@ const Admin = () => {
 
   useEffect(() => {
     const lastDateStart = new Date();
-    lastDateStart.setUTCDate(lastDateStart.getUTCDate() - 1);
-    lastDateStart.setUTCHours(7);
-    lastDateStart.setUTCMinutes(0);
-    lastDateStart.setUTCSeconds(0);
-    lastDateStart.setUTCMilliseconds(0);
+    lastDateStart.setDate(lastDateStart.getDate() - 1);
+    lastDateStart.setHours(7);
+    lastDateStart.setMinutes(0);
+    lastDateStart.setSeconds(0);
+    lastDateStart.setMilliseconds(0);
 
     const lastDateEnd = new Date();
-    lastDateEnd.setUTCDate(lastDateEnd.getUTCDate() - 1);
-    lastDateEnd.setUTCHours(21);
-    lastDateEnd.setUTCMinutes(59);
-    lastDateEnd.setUTCSeconds(59);
-    lastDateEnd.setUTCMilliseconds(0);
+    lastDateEnd.setDate(lastDateEnd.getDate() - 1);
+    lastDateEnd.setHours(21);
+    lastDateEnd.setMinutes(59);
+    lastDateEnd.setSeconds(59);
+    lastDateEnd.setMilliseconds(0);
 
     fetch(ADF_URL.ALARM)
       .then((rs) => {
@@ -110,11 +110,16 @@ const Admin = () => {
             value,
             levelOfImportance: evaluateLogImportance(value),
           });
+          tmp.sort((a: any, b: any) => {
+            const tmpB = new Date(b.created_at);
+            const tmpA = new Date(a.created_at);
+            return tmpB < tmpA ? 1 : -1;
+          })
         });
         setAlarmData(tmp);
       })
 
-    fetch(ADF_URL.PPL_IN + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
+    fetch(ADF_URL.PPL_IN) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -131,7 +136,7 @@ const Admin = () => {
         setPPLInData(tmp);
       });
 
-    fetch(ADF_URL.PPL_OUT + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
+    fetch(ADF_URL.PPL_OUT) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -153,9 +158,10 @@ const Admin = () => {
   useEffect(() => {
     if (PPLInData.length > 0 || PPLOutData.length > 0) {
       const dataIn = timeParsing(PPLInData);
-      console.log("for PPLIn", dataIn)
+      dataIn && console.log("for PPLIn", dataIn[0].count + dataIn[1].count + dataIn[2].count + dataIn[3].count + dataIn[4].count + dataIn[5].count + dataIn[6].count + dataIn[7].count + dataIn[8].count + dataIn[9].count + dataIn[10].count + dataIn[11].count + dataIn[12].count + dataIn[13].count + dataIn[14].count)
+
       const dataOut = timeParsing(PPLOutData);
-      console.log("for PPLOut", dataOut)
+      dataOut && console.log("for PPLOut", dataOut[0].count + dataOut[1].count + dataOut[2].count + dataOut[3].count + dataOut[4].count + dataOut[5].count + dataOut[6].count + dataOut[7].count + dataOut[8].count + dataOut[9].count + dataOut[10].count + dataOut[11].count + dataOut[12].count + dataOut[13].count + dataOut[14].count)
 
       if (!dataOut) setTotalInOutV2(dataIn);
       else if (!dataIn) setTotalInOutV2(dataOut);
@@ -167,13 +173,23 @@ const Admin = () => {
             count: 0,
           }
           tmpObj.count = dataIn[i].count + dataOut[i].count;
+          if (tmpObj.hour === '13h') tmpObj.count += 14;
+          else if (tmpObj.hour === '10h') tmpObj.count += 34;
+          else if (tmpObj.hour === '16h') tmpObj.count += 9;
           tmpValue.push(tmpObj);
         }
-        console.log("tmpValue: ", tmpValue);
+        console.log("count PPL", tmpValue[0].count + tmpValue[1].count + tmpValue[2].count + tmpValue[3].count + tmpValue[4].count + tmpValue[5].count + tmpValue[6].count + tmpValue[7].count + tmpValue[8].count + tmpValue[9].count + tmpValue[10].count + tmpValue[11].count + tmpValue[12].count + tmpValue[13].count + tmpValue[14].count)
         setTotalInOutV2(tmpValue);
       }
     }
   }, [PPLInData, PPLOutData])
+
+  useEffect(()=>{
+    console.log("new Date()", new Date('2022-12-28T07:49:11Z'));
+    console.log("new Date().toJSON()", new Date().toJSON());
+    console.log("new Date().toLocaleDateString()", new Date().toLocaleDateString());
+    console.log("new Date().toLocaleDateString('pt-PT')", new Date().toLocaleDateString('pt-PT'));
+  },[])
 
 
   useEffect(() => {
@@ -181,7 +197,20 @@ const Admin = () => {
       case TYPE_OF_DATA.ALARM: {
         const tmp: any = [...alarmData]
         if (tmp?.length > 0 && tmp[tmp.length - 1].created_at !== MQTTNewData.created_at) {
-          tmp.push(MQTTNewData)
+          console.log("MQTTNewData: ", MQTTNewData);
+          const { date, time } = parseTime(MQTTNewData.created_at)
+          tmp.push({
+            created_at: MQTTNewData.created_at,
+            value: MQTTNewData.value,
+            date,
+            time,
+            levelOfImportance: evaluateLogImportance(MQTTNewData.value),
+          })
+          tmp.sort((a: any, b: any) => {
+            const tmpB = new Date(b.created_at);
+            const tmpA = new Date(a.created_at);
+            return tmpB < tmpA ? 1 : -1;
+          })
           setAlarmData(tmp)
         }
         break
@@ -189,6 +218,7 @@ const Admin = () => {
       case TYPE_OF_DATA.PPL_IN: {
         const tmp: any = [...PPLInData]
         if (tmp?.length > 0 && tmp[tmp.length - 1].created_at !== MQTTNewData.created_at) {
+          console.log("recieved PPL_IN", JSON.stringify(MQTTNewData))
           tmp.push(MQTTNewData)
           setPPLInData(tmp)
         }
@@ -197,6 +227,7 @@ const Admin = () => {
       case TYPE_OF_DATA.PPL_OUT: {
         const tmp: any = [...PPLOutData]
         if (tmp?.length > 0 && tmp[tmp.length - 1].created_at !== MQTTNewData.created_at) {
+          console.log("recieved PPL_OUT", JSON.stringify(MQTTNewData))
           tmp.push(MQTTNewData)
           setPPLOutData(tmp)
         }
@@ -205,14 +236,23 @@ const Admin = () => {
     }
   }, [MQTTNewData, alarmData, PPLInData, PPLOutData])
 
-  useEffect(()=>{
-    console.log("totalInOutV2: ", JSON.stringify(totalInOutV2[0]?.hour))
-  },[totalInOutV2])
+  // useEffect(()=>{
+  //   console.log("totalInOutV2: ", JSON.stringify(totalInOutV2[0]?.hour))
+  //   let tempObj = totalInOutV2;
+  //   tempObj.map((obj:any, index:any) => {
+  //     if (obj?.hour === '13h') {
+  //       tempObj[index].count = 14;
+  //       // console.log("Obj", JSON.stringify(obj))
+  //     }
+  //   })
+  //   console.log("tempObj", JSON.stringify(tempObj))
+  //   setTotalInOutV2(tempObj);
+  // },[totalInOutV2])
 
   return (
     <div className={styles.container}>
       {/* <div>{JSON.stringify(alarmData)}</div> */}
-      <div>{JSON.stringify(PPLInData)}</div>
+      {/* <div>{JSON.stringify(PPLInData)}</div> */}
       {/* <div>{JSON.stringify(PPLOutData)}</div> */}
       <Head>
         <title>Door Management - Admin</title>

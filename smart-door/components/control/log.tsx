@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from 'styles/control.module.scss';
 
 interface Icontent {
@@ -19,6 +19,8 @@ interface LogProps {
 const MAX_LOG_SIZE = 100;
 
 const Log = ({ contents, ...props }: LogProps) => {
+    const lastElement = useRef<any>(null);
+
     const textStyle = useCallback((levelOfImportance: string | undefined) => {
         switch (levelOfImportance) {
             case 'high':
@@ -32,12 +34,21 @@ const Log = ({ contents, ...props }: LogProps) => {
         }
     }, [])
 
+    useEffect(()=>{
+        if (lastElement.current) lastElement.current.scrollIntoView({ behavior: 'smooth' });
+    },[contents])
+
     return (
         <div className={styles.logContainer} {...props}>
             <div className={styles.title}>Noticeable Log</div>
             <div className={styles.buffer}>
                 {contents.map((content, index) => {
-                    if (index < MAX_LOG_SIZE) return (
+                    if (index === contents.length - 1) return (
+                        <p className={textStyle(content.levelOfImportance)} key={index} ref={lastElement}>
+                            {`${content.date} [${content.time}]: ${content.value}`}
+                        </p>
+                    )
+                    else if (index < MAX_LOG_SIZE - 1) return (
                         <p className={textStyle(content.levelOfImportance)} key={index}>
                             {`${content.date} [${content.time}]: ${content.value}`}
                         </p>

@@ -70,7 +70,7 @@ const LoginPage = (props: Props) => {
             <Text b size={22} >How to get an account?</Text>
           </Modal.Header>
           <Modal.Body>
-            <p style={{textAlign: 'justify'}}>Because of security Policy, new employees need an account to pass the security gate. Please contact an administrator to get an new account.</p>
+            <p className={loginStyles.textAlign}>Because of security Policy, new employees need an account to pass the security gate. Please contact an administrator to get an new account.</p>
           </Modal.Body>
           <Modal.Footer>
             <a href="mailto:khangpt3@vng.com.vn" target="_blank" rel="noopener noreferrer" style={{fontWeight: 'bold', fontSize: '14px'}} onClick={hideCreateGuide}>Email Admin</a>
