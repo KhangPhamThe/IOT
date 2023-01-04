@@ -6,7 +6,7 @@ import styles from 'styles/control.module.scss';
 import MQTTContext from '../context/MQTTProvider';
 
 const TYPE_OF_DATA = {
-	ALLOW: 'dadn.allow',	
+    ALLOW: 'dadn.allow',
 }
 
 const ADF_URL = {
@@ -14,7 +14,7 @@ const ADF_URL = {
 };
 
 const ADF_MQTT_URL = {
-    ALLOW: `KhangPhamThe/feeds/${TYPE_OF_DATA.ALLOW}`,    
+    ALLOW: `KhangPhamThe/feeds/${TYPE_OF_DATA.ALLOW}`,
 }
 interface BtnOpenDoorProps {
     size: "phone" | "web",
@@ -23,34 +23,35 @@ interface BtnOpenDoorProps {
     className?: string,
 }
 
-const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
+const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
 
     const [isDoorOpen, setIsDoorOpen] = useState(false)
     const currentUser = useAppSelector(state => state.user)
     const MQTTNewData = useContext<any>(MQTTContext)
 
-    const containerStyle = useMemo(()=>{
+    const containerStyle = useMemo(() => {
         return size == "phone" ? styles.openDoorPhone : styles.openDoorWeb;
-    },[size])
-    
+    }, [size])
 
-    useEffect(() =>  {
+
+    useEffect(() => {
         fetch(`${ADF_URL.ALLOW}`)
             .then((rs) => {
-            return rs.json();
+                return rs.json();
             })
             .then((json) => {
                 // console.log(json)
                 // console.log(json[json.length - 1])
-                const {  value } = json[0];
+                const { value } = json[0];
                 console.log(value, value === "1")
-                if (value === "1")  {     // ON
+                if (value === "1") {     // ON
                     setIsDoorOpen(true)
                 }
                 else {
                     setIsDoorOpen(false)
                 }
-        })        
+            })
+            .catch((e) => { console.error(e) })
     }, [])
 
     useEffect(() => {
@@ -63,20 +64,21 @@ const BtnOpenDoor = ({size, ...props}:BtnOpenDoorProps) => {
         }
     }, [MQTTNewData])
 
-    const handleOpenDoor = async () => {        
+    const handleOpenDoor = async () => {
         let isOpening = false
         await fetch(`${ADF_URL.ALLOW}`)
             .then((rs) => {
-            return rs.json();
+                return rs.json();
             })
             .then((json) => {
-                const {  value } = json[json.length - 1];
-                if (value === "1")  {     // ON
-                    isOpening = true                    
+                const { value } = json[json.length - 1];
+                if (value === "1") {     // ON
+                    isOpening = true
                 } else {
                     isOpening = false
                 }
-        })
+            })
+            .catch((e) => { console.error(e) })
 
         if (!isOpening) {
             MQTTNewData?.client?.publish(ADF_MQTT_URL.ALLOW, JSON.stringify({

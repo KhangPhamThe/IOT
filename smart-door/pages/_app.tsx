@@ -6,10 +6,17 @@ import { Provider } from "react-redux";
 import { store } from "store";
 import { useRouter } from "next/router";
 import { MQTTProvider } from "@/components/context/MQTTProvider";
+import { useEffect } from "react";
+import { checkExpiredToken } from "utils/users.utils";
 // import { Connector } from "mqtt-react-hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  useEffect(()=>{
+    checkExpiredToken();
+  }, [])
+
   return (
     <Provider store={store}>
       <MQTTProvider>

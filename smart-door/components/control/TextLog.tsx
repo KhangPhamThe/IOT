@@ -89,7 +89,7 @@ const TextLog = () => {
     return (
         <div className={controlStyle.TextLogContainer}>
             <div className={controlStyle.inputField}>
-                <input ref={emailRef} />
+                <input aria-label="email" ref={emailRef} />
                 <button onClick={handleOnClick}>send</button>
             </div>
 

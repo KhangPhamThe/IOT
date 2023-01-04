@@ -8,11 +8,18 @@ import MenuIcon from '@/assets/svg/menuIcon';
 import HomeIcon from '@/assets/svg/homeIcon';
 import SettingIcon from '@/assets/svg/settingIcon';
 import AccountIcon from '@/assets/svg/account';
-import { useAppSelector } from 'hooks';
+import { useAppSelector, useAppDispatch } from 'hooks';
+import { validateAvatar } from 'utils/users.utils';
+import { onLogout } from "reducer/user/userSlice";
+import LogOutIcon from '@/assets/svg/logOutIcon';
 
 
 const User = () => {
     const currUserSelection = useAppSelector(state => state.user);
+    const dispatch = useAppDispatch()
+    const handleLogout = () => {
+        dispatch(onLogout())
+    }
 
     return (
         <div className={userStyle.container}>
@@ -36,27 +43,27 @@ const User = () => {
 
             <main className={userStyle.accountContainer} style={{ width: '90%' }}>
                 <div className={userStyle.ava}>
-                    <img src="https://scontent.fsgn19-1.fna.fbcdn.net/v/t1.18169-9/27858226_2002217240039299_3532918632429742634_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=djLKM2VBJWQAX9oqQA0&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfAcNerg8QvUUQVU8cmz4ygPrQwAMkSaiLsXDjWzveht4w&oe=63BCE77C" />
+                    <img src={validateAvatar(currUserSelection.current?.avatarURL)} />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>First Name</h3>
-                    <input value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled />
+                    <input aria-label='firstName' value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Last Name</h3>
-                    <input value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled />
+                    <input aria-label='lastName' value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Email</h3>
-                    <input value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled />
+                    <input aria-label='email' value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled />
                 </div>
 
                 <div className={userStyle.field}>
                     <h3>Role</h3>
-                    <input value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled />
+                    <input aria-label='role' value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled />
                 </div>
 
             </main>
@@ -74,9 +81,7 @@ const User = () => {
                     </div>
                 </Link>
 
-                <Link href="/admin">
-                    <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
-                </Link>
+                <LogOutIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={handleLogout} />
             </div>
         </div>
     );

@@ -118,6 +118,7 @@ const Admin = () => {
         });
         setAlarmData(tmp);
       })
+      .catch((e) => { console.error(e) });
 
     fetch(ADF_URL.PPL_IN) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
@@ -134,7 +135,8 @@ const Admin = () => {
           tmp.push(created_at);
         });
         setPPLInData(tmp);
-      });
+      })
+      .catch((e) => { console.error(e) });
 
     fetch(ADF_URL.PPL_OUT) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
@@ -151,7 +153,8 @@ const Admin = () => {
           tmp.push(created_at);
         });
         setPPLOutData(tmp);
-      });
+      })
+      .catch((e) => { console.error(e) });
   }, [route.pathname]);
 
 

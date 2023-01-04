@@ -63,14 +63,18 @@ export const userAPI = {
   }) => {
     const url = "get-user-profile";
     const requestHeader: HeadersInit = new Headers();
-    requestHeader.set("auth-token", data.jwt);
+    requestHeader.set("auth-token", data?.jwt || '');
 
-    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
-      method: "GET",
-      headers: requestHeader,
-      mode: "cors",
-    });
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+        method: "GET",
+        headers: requestHeader,
+        mode: "cors",
+      });
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   getAllUserProfile: async () => {
@@ -78,12 +82,16 @@ export const userAPI = {
     const requestHeader: HeadersInit = new Headers();
     requestHeader.set("auth-token", getCookieUserJWT() || '');
 
-    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
-      method: "GET",
-      headers: requestHeader,
-      mode: "cors",
-    });
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+        method: "GET",
+        headers: requestHeader,
+        mode: "cors",
+      });
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   onLogOutAccount: async () => {
@@ -100,18 +108,26 @@ export const userAPI = {
     requestHeader.set('Content-Type', "application/json");
     requestHeader.set("auth-token", getCookieUserJWT() || '');
 
-    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
-      method: "POST",      
-      headers: requestHeader,
-      body: JSON.stringify(data)
-    })
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+        method: "POST",      
+        headers: requestHeader,
+        body: JSON.stringify(data)
+      })
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   getAllSignalInOutDoor: async () => {
     const url = "admin/get-all-in-out-door"
-    const rs = await fetch(`${DOMAIN_URL}/${url}`)
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}`)
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   getCountInOutDoor: async () => {
@@ -119,11 +135,15 @@ export const userAPI = {
     const requestHeader: HeadersInit = new Headers();
     requestHeader.set("auth-token", getCookieUserJWT() || '');
 
-    const rs = await fetch(`${DOMAIN_URL}/${url}`, {
-      method: "GET",
-      headers: requestHeader,
-    })
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}`, {
+        method: "GET",
+        headers: requestHeader,
+      })
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   getSignalInOutByEmail: async (data : {
@@ -132,10 +152,14 @@ export const userAPI = {
     const url = "admin/get-id-in-out-door"
     const requestHeader: HeadersInit = new Headers();
     requestHeader.set("auth-token", getCookieUserJWT() || '');
-    const rs = await fetch(`${DOMAIN_URL}/${url}?email=${data.email}`, {
-      method: "GET",
-      headers: requestHeader,
-    })
-    return rs.json();
+    try {
+      const rs = await fetch(`${DOMAIN_URL}/${url}?email=${data.email}`, {
+        method: "GET",
+        headers: requestHeader,
+      })
+      return rs.json();
+    } catch (error) {
+      console.error(error);
+    }
   }
 };

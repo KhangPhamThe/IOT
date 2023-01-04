@@ -13,9 +13,17 @@ import { Input } from '@nextui-org/react';
 import SearchIcon from '@/assets/svg/searchIcon';
 import styles from "styles/navBar.module.scss";
 import AccountIcon from '@/assets/svg/account';
+import { useAppDispatch } from "hooks";
+import { onLogout } from "reducer/user/userSlice";
+import LogOutIcon from '@/assets/svg/logOutIcon';
 
 const User = () => {
     const route = useRouter();
+    const dispatch = useAppDispatch()
+    const handleLogout = () => {
+        dispatch(onLogout())
+    }
+
     return (
         <div className={userStyle.container}>
             <Head>
@@ -73,9 +81,7 @@ const User = () => {
                     </div>
                 </Link>
 
-                <Link href="/admin">
-                    <SettingIcon style={{ margin: 'auto 0' }} className={userStyle.btn} />
-                </Link>
+                <LogOutIcon style={{ margin: 'auto 0' }} className={userStyle.btn} onClick={handleLogout} />
             </div>
         </div>
     );

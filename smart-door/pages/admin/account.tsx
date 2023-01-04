@@ -4,6 +4,7 @@ import styles from "styles/Home.module.scss";
 import NavBar from "components/home/navBar";
 import LeftBar from "components/home/leftBar";
 import { useAppSelector } from 'hooks';
+import { validateAvatar } from "utils/users.utils";
 
 const Account = () => {
 	const currUserSelection = useAppSelector(state => state.user);
@@ -24,27 +25,27 @@ const Account = () => {
 
 					<main className={adminStyle.mainAccountContent}>
 						<div className={adminStyle.ava}>
-							<img src="https://scontent.fsgn19-1.fna.fbcdn.net/v/t1.18169-9/27858226_2002217240039299_3532918632429742634_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=djLKM2VBJWQAX9oqQA0&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfAcNerg8QvUUQVU8cmz4ygPrQwAMkSaiLsXDjWzveht4w&oe=63BCE77C" />
+							<img src={validateAvatar(currUserSelection.current?.avatarURL)} />
 						</div>
 
 						<div className={adminStyle.field}>
 							<h3>First Name</h3>
-							<input value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled />
+							<input aria-label="firstName" value={currUserSelection.current?.firstName ? currUserSelection.current?.firstName : ""} disabled />
 						</div>
 
 						<div className={adminStyle.field}>
 							<h3>Last Name</h3>
-							<input value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled />
+							<input aria-label="lastName" value={currUserSelection.current?.lastName ? currUserSelection.current?.lastName : ""} disabled />
 						</div>
 
 						<div className={adminStyle.field}>
 							<h3>Email</h3>
-							<input value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled />
+							<input aria-label="email" value={currUserSelection.current?.email ? currUserSelection.current?.email : ""} disabled />
 						</div>
 
 						<div className={adminStyle.field}>
 							<h3>Role</h3>
-							<input value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled />
+							<input aria-label="role" value={currUserSelection.current?.role ? currUserSelection.current?.role : ""} disabled />
 						</div>
 					</main>
 				</div>

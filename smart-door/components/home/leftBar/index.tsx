@@ -41,7 +41,7 @@ const LeftBar = () => {
                 <CategoryItem icon={<RegisterIcon/>} title="Register" active={isActive("Register")} url="/admin/register" />
                 <CategoryItem icon={<BookmarkIcon/>} title="Bookmark" unavailable/>
                 <CategoryItem icon={<SupportIcon/>} title="Support" unavailable/>
-                <CategoryItem icon={<SettingIcon/>} title="Setting" url="/user" />
+                <CategoryItem icon={<SettingIcon/>} title="Setting" unavailable />
             </div>
         </div>
     )

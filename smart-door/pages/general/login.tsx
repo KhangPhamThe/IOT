@@ -19,6 +19,17 @@ const LoginPage = (props: Props) => {
   const dispatch = useAppDispatch();  
 
   const [isShowCreateGuide, setIsShowCreateGuide] = useState(false);  
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const showErrorGuide = (message: string) => {
+    setError(true);
+    setErrorMessage(message);
+  }
+
+  const hideErrorGuide = () => {
+    setError(false);
+  }
 
   const showCreateGuide = () => {
     setIsShowCreateGuide(true);
@@ -28,8 +39,8 @@ const LoginPage = (props: Props) => {
   }
 
   const handleOnLogin = async () => {
-    console.log(emailInput?.current?.value)
-    console.log(passInput?.current?.value)
+    if (!emailInput?.current?.value || !passInput?.current?.value) return showErrorGuide("Please fill in both email and password");
+
     try {
       const payload = {
         email: emailInput?.current?.value || "",
@@ -37,10 +48,12 @@ const LoginPage = (props: Props) => {
       }
       const userActionResult = await dispatch(signIn(payload))
       unwrapResult(userActionResult)
-      
     }
     catch {
       // handle error here like display something
+      showErrorGuide("Invalid email or password");
+      emailInput.current.value = "";
+      passInput.current.value = "";
     }
   }  
 
@@ -75,6 +88,15 @@ const LoginPage = (props: Props) => {
           <Modal.Footer>
             <a href="mailto:khangpt3@vng.com.vn" target="_blank" rel="noopener noreferrer" style={{fontWeight: 'bold', fontSize: '14px'}} onClick={hideCreateGuide}>Email Admin</a>
           </Modal.Footer>
+        </Modal>
+
+        <Modal closeButton open={error} onClose={hideErrorGuide} style={{maxWidth: '85%', margin: '0 auto'}}>
+          <Modal.Header>
+            <Text b size={22} >Login failed</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <p style={{textAlign: 'center'}}>{errorMessage}</p>
+          </Modal.Body>
         </Modal>
       </div>
     </div>
