@@ -71,7 +71,7 @@ const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
                 return rs.json();
             })
             .then((json) => {
-                const { value } = json[json.length - 1];
+                const { value } = json[0];    //const { value } = json[json.length - 1];
                 if (value === "1") {     // ON
                     isOpening = true
                 } else {
