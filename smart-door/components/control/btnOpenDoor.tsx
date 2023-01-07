@@ -40,10 +40,8 @@ const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
                 return rs.json();
             })
             .then((json) => {
-                // console.log(json)
-                // console.log(json[json.length - 1])
                 const { value } = json[0];
-                console.log(value, value === "1")
+                console.log("value", value, value === "1");
                 if (value === "1") {     // ON
                     setIsDoorOpen(true)
                 }
@@ -72,6 +70,7 @@ const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
             })
             .then((json) => {
                 const { value } = json[0];    //const { value } = json[json.length - 1];
+                console.log("value", value, value === "1");
                 if (value === "1") {     // ON
                     isOpening = true
                 } else {
@@ -84,6 +83,7 @@ const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
             MQTTNewData?.client?.publish(ADF_MQTT_URL.ALLOW, JSON.stringify({
                 value: "1"  // ON
             }))
+            console.log("has publish 1 to allow", MQTTNewData?.client?.publish);
             await userAPI.createNewSignalInOutDoor({
                 email: currentUser?.current?.email || ''
             })

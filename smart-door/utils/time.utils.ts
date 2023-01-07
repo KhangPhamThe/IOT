@@ -5,7 +5,7 @@ export const parseTime = (time:string) => {
     const timeGr = dateTimeGr[1].split(':');
 
     const year = dateGr[0];
-    const month = dateGr[1];
+    const month = dateGr[1] + 1;
     const day = dateGr[2];
 
     const hour = timeGr[0];
