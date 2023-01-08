@@ -34,7 +34,7 @@ const User = () => {
 
                 <div className={userStyle.logoGr}>
                     <Image src={logo} width="42px" height="35px" />
-                    <h1>IOM Cop</h1>
+                    <h1>IOM</h1>
                 </div>
 
                 <QuestionIcon2 style={{ margin: 'auto 0' }} />

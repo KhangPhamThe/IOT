@@ -81,14 +81,14 @@ const Admin = () => {
 
   useEffect(() => {
     const lastDateStart = new Date();
-    lastDateStart.setDate(lastDateStart.getDate() - 1);
+    lastDateStart.setDate(lastDateStart.getDate()); // lastDateStart.setDate(lastDateStart.getDate() - 1);
     lastDateStart.setHours(7);
     lastDateStart.setMinutes(0);
     lastDateStart.setSeconds(0);
     lastDateStart.setMilliseconds(0);
 
     const lastDateEnd = new Date();
-    lastDateEnd.setDate(lastDateEnd.getDate() - 1);
+    lastDateEnd.setDate(lastDateEnd.getDate()); // lastDateEnd.setDate(lastDateEnd.getDate() - 1);
     lastDateEnd.setHours(21);
     lastDateEnd.setMinutes(59);
     lastDateEnd.setSeconds(59);
@@ -120,7 +120,7 @@ const Admin = () => {
       })
       .catch((e) => { console.error(e) });
 
-    fetch(ADF_URL.PPL_IN) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
+    fetch(ADF_URL.PPL_IN + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -138,7 +138,7 @@ const Admin = () => {
       })
       .catch((e) => { console.error(e) });
 
-    fetch(ADF_URL.PPL_OUT) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
+    fetch(ADF_URL.PPL_OUT + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`) // + `?start_time=${lastDateStart.toJSON()}&end_time=${lastDateEnd.toJSON()}`)
       .then((rs) => {
         return rs.json();
       })
@@ -176,9 +176,7 @@ const Admin = () => {
             count: 0,
           }
           tmpObj.count = dataIn[i].count + dataOut[i].count;
-          if (tmpObj.hour === '13h') tmpObj.count += 14;
-          else if (tmpObj.hour === '10h') tmpObj.count += 34;
-          else if (tmpObj.hour === '16h') tmpObj.count += 9;
+          // if (tmpObj.hour === '13h') tmpObj.count +d
           tmpValue.push(tmpObj);
         }
         console.log("count PPL", tmpValue[0].count + tmpValue[1].count + tmpValue[2].count + tmpValue[3].count + tmpValue[4].count + tmpValue[5].count + tmpValue[6].count + tmpValue[7].count + tmpValue[8].count + tmpValue[9].count + tmpValue[10].count + tmpValue[11].count + tmpValue[12].count + tmpValue[13].count + tmpValue[14].count)

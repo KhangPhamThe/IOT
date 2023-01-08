@@ -32,7 +32,7 @@ const LeftBar = () => {
         <div className={styles["leftBar-container"]}>
             <div className={styles.logo}>
                 <Image src={logo} width="42px" height="35px" />
-                <h1>IOM Cop</h1>
+                <h1>IOM</h1>
             </div>
 
             <div className={styles.categoryContainer}>
