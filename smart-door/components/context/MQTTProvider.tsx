@@ -48,6 +48,12 @@ export const MQTTProvider = (props: Props) => {
             const client = mqtt.connect(mqttUri, options);
             client.on('connect', () => {
                 console.log('connected to adafruit')
+                setNewData({
+                    created_at: '', 
+                    feed_key: '', 
+                    value: '',
+                    client: client,
+                })
                 client.subscribe(topics, () => {
                     console.log("subscribed to all board")
                 })
