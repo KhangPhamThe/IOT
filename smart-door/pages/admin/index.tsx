@@ -81,14 +81,14 @@ const Admin = () => {
 
   useEffect(() => {
     const lastDateStart = new Date();
-    lastDateStart.setDate(lastDateStart.getDate() - 5); // lastDateStart.setDate(lastDateStart.getDate() - 1);
+    lastDateStart.setDate(lastDateStart.getDate()); // lastDateStart.setDate(lastDateStart.getDate() - 1);
     lastDateStart.setHours(7);
     lastDateStart.setMinutes(0);
     lastDateStart.setSeconds(0);
     lastDateStart.setMilliseconds(0);
 
     const lastDateEnd = new Date();
-    lastDateEnd.setDate(lastDateEnd.getDate() - 5); // lastDateEnd.setDate(lastDateEnd.getDate() - 1);
+    lastDateEnd.setDate(lastDateEnd.getDate()); // lastDateEnd.setDate(lastDateEnd.getDate() - 1);
     lastDateEnd.setHours(21);
     lastDateEnd.setMinutes(59);
     lastDateEnd.setSeconds(59);
