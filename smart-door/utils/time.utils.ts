@@ -19,7 +19,7 @@ export const parseTime = (time:string) => {
         hour: d.getHours(),
         minute: d.getMinutes(),
 
-        date: d.getDate() + '-' + d.getMonth() + 1 + '-' + d.getFullYear(),
+        date: d.getDate() + '-' + String(d.getMonth() + 1) + '-' + d.getFullYear(),
         time: d.getHours() + ':' + d.getMinutes(),
     }
 }
