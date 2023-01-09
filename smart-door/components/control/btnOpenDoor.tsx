@@ -7,6 +7,7 @@ import MQTTContext from '../context/MQTTProvider';
 
 const TYPE_OF_DATA = {
     ALLOW: 'dadn.allow',
+    ALARM: 'dadn.alarm',
 }
 
 const ADF_URL = {
@@ -15,6 +16,7 @@ const ADF_URL = {
 
 const ADF_MQTT_URL = {
     ALLOW: `KhangPhamThe/feeds/${TYPE_OF_DATA.ALLOW}`,
+    ALARM: `KhangPhamThe/feeds/${TYPE_OF_DATA.ALARM}`,
 }
 interface BtnOpenDoorProps {
     size: "phone" | "web",
@@ -83,6 +85,12 @@ const BtnOpenDoor = ({ size, ...props }: BtnOpenDoorProps) => {
             MQTTNewData?.client?.publish(ADF_MQTT_URL.ALLOW, JSON.stringify({
                 value: "1"  // ON
             }))
+            // const date = new Date();
+            // if (date.getHours() >= 9) {
+            //     MQTTNewData?.client?.publish(ADF_MQTT_URL.ALARM, JSON.stringify({
+            //         value: `${currentUser.current?.email} goes to work late !!`  // ON
+            //     }))
+            // }
             console.log("has publish 1 to allow", MQTTNewData?.client?.publish);
             await userAPI.createNewSignalInOutDoor({
                 email: currentUser?.current?.email || ''
